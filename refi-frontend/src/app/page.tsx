@@ -9,7 +9,7 @@ const Landing = ()=>{
         <div className="py-5 flex justify-center">
           <Header />
         </div>
-        <div className="py-2">
+        <div className="py-20">
           <Content />
         </div>
     </div>

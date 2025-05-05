@@ -16,8 +16,6 @@ const ThreeCards = () => {
           Learn more
         </button>
       </div>
-
-      {/* Second Card (Content Component) */}
       <Content />
 
       {/* Third Card */}

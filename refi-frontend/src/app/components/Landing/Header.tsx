@@ -14,7 +14,7 @@ const Header = () => {
         <div className="flex gap-10">
           <h1 className="text-xl font-sans cursor-pointer  transition duration-1000">Home</h1>
           <h1 className="text-xl font-sans cursor-pointer">Features</h1>
-          <h1 className="text-xl font-sans cursor-pointer">Pricing</h1>
+          <h1 className="text-xl font-sans cursor-pointer">Register Orgs</h1>
         </div>
 
         {/* Connect Button */}
