@@ -63,28 +63,28 @@ const Content = () => {
 
             {/* Smaller inner orbit (reverse direction) */}
             <OrbitingCircles radius={100} duration={15} reverse>
-              <div className="w-20 h-20 rounded-full overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
-                <img
-                  src="https://imgs.search.brave.com/_MGfjbqgpDBMeNiCt8cAww6uzhRBaRiqjdjrtFQWIyE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2IwZjE3MDhmLWQ3/ODAtNGY5NC1iODVm/LTUwNDY2ZmI2ZjVk/Zi53ZWJwL3R5cGU9/bGlzdA"
-                  alt="NFT 4"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="w-20 h-20 rounded-full overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
-                <img
-                  src="https://imgs.search.brave.com/n85vOzfq9PeFTTA-W9bktNe1EO3bwRVquECdgOtN1OA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/LzY0MTZjZTNmLTEz/ZTUtNDYzOC05YzA2/LTgyMjIwODFiYTBm/Yi53ZWJwL3R5cGU9/bGlzdA"
-                  alt="NFT 5"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="w-20 h-20 rounded-full overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
-                <img
-                  src="https://imgs.search.brave.com/aLTYInQakVHh4J9qKq9yw7eIbJBNQUlE_E6nHvTzpWU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2Y5N2ViODFiLTY2/MWUtNDdiNS1hZjY0/LWNkYzI3ZDVjMzQ1/Ni53ZWJwL3R5cGU9/bGlzdA"
-                  alt="NFT 6"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </OrbitingCircles>
+  <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+    <img
+      src="https://imgs.search.brave.com/QMRPV2RqBkRJmJy8FvrxgvYpi3MXHKvDruYVoxk4Mc4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2E5MDQzODIxLTM3/NjAtNGViOC05YjVj/LTU3NmRhYmU4ZDM2/OS53ZWJwL3R5cGU9/bGlzdA"
+      alt="NFT 4"
+      className="w-full h-full object-cover"
+    />
+  </div>
+  <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+    <img
+      src="https://imgs.search.brave.com/QMRPV2RqBkRJmJy8FvrxgvYpi3MXHKvDruYVoxk4Mc4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2E5MDQzODIxLTM3/NjAtNGViOC05YjVj/LTU3NmRhYmU4ZDM2/OS53ZWJwL3R5cGU9/bGlzdA"
+      alt="NFT 5"
+      className="w-full h-full object-cover"
+    />
+  </div>
+  <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+    <img
+      src="https://imgs.search.brave.com/QMRPV2RqBkRJmJy8FvrxgvYpi3MXHKvDruYVoxk4Mc4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2E5MDQzODIxLTM3/NjAtNGViOC05YjVj/LTU3NmRhYmU4ZDM2/OS53ZWJwL3R5cGU9/bGlzdA"
+      alt="NFT 6"
+      className="w-full h-full object-cover"
+    />
+  </div>
+</OrbitingCircles>
 
             {/* Center NFT (largest) */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
@@ -101,7 +101,7 @@ const Content = () => {
           {/* Caption under the orbit */}
           <div className="mb-125"></div>
           <div className="absolute bottom-0  right-[-200px] transform -translate-x-1/2 text-center">
-            <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-yellow-200  ">
+            <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-200 to-purple-100  ">
               Mint and Trade Exclusive NFTs
             </h2>
           </div>
