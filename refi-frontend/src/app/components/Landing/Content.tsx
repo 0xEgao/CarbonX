@@ -1,0 +1,117 @@
+"use client";
+
+import Image from "next/image";
+import PurpleBlob from "./PurpleBlob";
+import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
+import { File, Settings, Search } from "lucide-react";
+
+const Content = () => {
+  return (
+    <div className="relative bg-black text-white h-[600px] w-full max-w-[1800px] rounded-2xl px-16 py-20 mx-auto overflow-hidden">
+      {/* Enhanced Purple Background Blobs */}
+      <PurpleBlob className="top-[-100px] right-[-150px] scale-125" />
+      <div className="absolute -top-10 -right-10 w-60 h-60 bg-purple-700 rounded-full blur-3xl opacity-50"></div>
+      <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-purple-700 rounded-full blur-3xl opacity-50"></div>
+
+      {/* 2-Column Layout (Text Left, Orbit Right) */}
+      <div className="flex justify-between items-center h-full">
+        {/* Left Side - Text + Buttons */}
+        <div className="max-w-xl w-1/2 text-left z-10">
+          <h1 className="text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-200">
+            Incentivize your Carbon Offsets
+          </h1>
+          <p className="text-xl text-gray-300 mb-10">
+            Do carbon offsetting by funding environment related projects.
+          </p>
+          <div className="flex gap-5">
+            <button className="bg-green-500 cursor-pointer text-black font-bold py-4 px-8 rounded-lg hover:bg-green-600 transition transform ">
+              Get started
+            </button>
+            <button className="bg-gray-800 cursor-pointer text-white font-bold py-4 px-8 rounded-lg hover:bg-gray-700 transition border border-gray-700 transform ">
+              How it works
+            </button>
+          </div>
+        </div>
+
+        {/* Right Side - NFT Orbit */}
+        <div className="w-1/2 h-full flex items-center justify-center relative z-10">
+          <div className="relative w-[300px] h-[200px] mt-20 ml-40">
+            {/* Larger outer orbit */}
+            <OrbitingCircles radius={180} duration={20}>
+              <div className="w-24 h-24 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+                <img
+                  src="https://imgs.search.brave.com/qOdf1afhDv5DVWSJ6htI4JGTLVR4HVHnaCjRqmUb48Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/LzRlMTRjMDExLTEy/OTUtNDNjNS1iNDRk/LWJhYWU3ZDVhMWZi/OS53ZWJwL3R5cGU9/bGlzdA"
+                  alt="NFT 1"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="w-24 h-24 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+                <img
+                  src="https://imgs.search.brave.com/QKzO5sfyc7s7yKIN8zEzmkCQLOMWDsjqhynNpmPsUFI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/Lzc0YTYzMWIzLTZl/Y2YtNGIyZS1iZTM4/LWMwYjRkY2IxMDhl/Ni53ZWJwL3R5cGU9/bGlzdA"
+                  alt="NFT 2"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="w-24 h-24 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+                <img
+                  src="https://imgs.search.brave.com/QMRPV2RqBkRJmJy8FvrxgvYpi3MXHKvDruYVoxk4Mc4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2E5MDQzODIxLTM3/NjAtNGViOC05YjVj/LTU3NmRhYmU4ZDM2/OS53ZWJwL3R5cGU9/bGlzdA"
+                  alt="NFT 3"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </OrbitingCircles>
+
+            {/* Smaller inner orbit (reverse direction) */}
+            <OrbitingCircles radius={100} duration={15} reverse>
+  <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+    <img
+      src="https://imgs.search.brave.com/QMRPV2RqBkRJmJy8FvrxgvYpi3MXHKvDruYVoxk4Mc4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2E5MDQzODIxLTM3/NjAtNGViOC05YjVj/LTU3NmRhYmU4ZDM2/OS53ZWJwL3R5cGU9/bGlzdA"
+      alt="NFT 4"
+      className="w-full h-full object-cover"
+    />
+  </div>
+  <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+    <img
+      src="https://imgs.search.brave.com/QMRPV2RqBkRJmJy8FvrxgvYpi3MXHKvDruYVoxk4Mc4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2E5MDQzODIxLTM3/NjAtNGViOC05YjVj/LTU3NmRhYmU4ZDM2/OS53ZWJwL3R5cGU9/bGlzdA"
+      alt="NFT 5"
+      className="w-full h-full object-cover"
+    />
+  </div>
+  <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+    <img
+      src="https://imgs.search.brave.com/QMRPV2RqBkRJmJy8FvrxgvYpi3MXHKvDruYVoxk4Mc4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2E5MDQzODIxLTM3/NjAtNGViOC05YjVj/LTU3NmRhYmU4ZDM2/OS53ZWJwL3R5cGU9/bGlzdA"
+      alt="NFT 6"
+      className="w-full h-full object-cover"
+    />
+  </div>
+</OrbitingCircles>
+
+            {/* Center NFT (largest) */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+              {/* <div className="w-32 h-32 rounded-2xl overflow-hidden shadow-xl shadow-purple-500/50 animate-pulse">
+                <img
+                  src="https://imgs.search.brave.com/qOdf1afhDv5DVWSJ6htI4JGTLVR4HVHnaCjRqmUb48Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/LzRlMTRjMDExLTEy/OTUtNDNjNS1iNDRk/LWJhYWU3ZDVhMWZi/OS53ZWJwL3R5cGU9/bGlzdA"
+                  alt="Featured NFT"
+                  className="w-full h-full object-cover"
+                />
+              </div> */}
+            </div>
+          </div>
+          
+          {/* Caption under the orbit */}
+          <div className="mb-125"></div>
+          <div className="absolute bottom-0  right-[-200px] transform -translate-x-1/2 text-center">
+            <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-200 to-purple-100  ">
+              Mint and Trade Exclusive NFTs
+            </h2>
+          </div>
+        </div>
+      </div>
+      
+      {/* Subtle grid overlay for depth */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+    </div>
+  );
+};
+
+export default Content;
