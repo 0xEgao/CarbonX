@@ -6,7 +6,7 @@
 
 
 <div>
-<img src="https://sdmntpreastus2.oaiusercontent.com/files/00000000-4b48-61f6-8116-10aec7445206/raw?se=2025-05-06T10%3A29%3A34Z&sp=r&sv=2024-08-04&sr=b&scid=0ef2513b-44ed-56ef-948c-adf05433fbb0&skoid=a47cd303-16a2-427e-8efb-2ce406116005&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-06T08%3A45%3A08Z&ske=2025-05-07T08%3A45%3A08Z&sks=b&skv=2024-08-04&sig=l3EM0UnXHyhNGm5ncybzW9GGBxwPiYN81Pq1BygS%2BJQ%3D" alt="eco nft marketplace preview" width="300" height="400">
+<img src="https://sdmntpreastus2.oaiusercontent.com/files/00000000-dfcc-61f6-98cb-e1ab36cbd4af/raw?se=2025-05-06T11%3A22%3A16Z&sp=r&sv=2024-08-04&sr=b&scid=09049c0c-eb82-5dfc-9765-f6f8704d0c13&skoid=aa8389fc-fad7-4f8c-9921-3c583664d512&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-06T09%3A32%3A23Z&ske=2025-05-07T09%3A32%3A23Z&sks=b&skv=2024-08-04&sig=l5jx26al80jpFAv37AgqFj7keffY0I521tauQ3S1pmE%3D" alt="eco nft marketplace preview" width="300" height="400">
 </div>
 
 # Overview
@@ -80,7 +80,3 @@ CarbonX leverages Solana's speed and cost-efficiency to provide:
 * **Backend Services**: Supabase
 * **Authentication**: Solana wallet adapters
 
-
-### For technical deep dives or design discussions:
-
-[CarbonX-notion](https://your-notion-link.com)
