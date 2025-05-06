@@ -2,6 +2,10 @@
 
 import PurpleBlob from "./PurpleBlob";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
+import Link from "next/link";
+
+
+
 
 const Content = () => {
   return (
@@ -23,11 +27,13 @@ const Content = () => {
           </p>
           <div className="flex gap-5">
             <button className="bg-green-500 cursor-pointer text-black font-bold py-4 px-8 rounded-lg hover:bg-green-600 transition transform ">
-              Get started
+                Join the Waitlist
             </button>
+            <Link href="#features">
             <button className="bg-gray-800 cursor-pointer text-white font-bold py-4 px-8 rounded-lg hover:bg-gray-700 transition border border-gray-700 transform ">
               How it works
             </button>
+            </Link>
           </div>
         </div>
 
@@ -38,7 +44,7 @@ const Content = () => {
             <OrbitingCircles radius={180} duration={20}>
               <div className="w-24 h-24 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
                 <img
-                  src="https://imgs.search.brave.com/qOdf1afhDv5DVWSJ6htI4JGTLVR4HVHnaCjRqmUb48Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/LzRlMTRjMDExLTEy/OTUtNDNjNS1iNDRk/LWJhYWU3ZDVhMWZi/OS53ZWJwL3R5cGU9/bGlzdA"
+                  src="https://imgs.search.brave.com/zuwWSgySM38k9tNOf4kigHg7a8Yo3QbWs-bU6c6w50c/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuY3RmYXNzZXRz/Lm5ldC8zbW5iZWp6/NHI2eGgvMVdyYVVy/V0M5OWV1NU9HVU5R/Z1VPZS82OThmOWMx/YzdlODQxNzI5NDZl/MTA5NmI3NWVkMTdm/NS9Pdm9scy5qcGc"
                   alt="NFT 1"
                   className="w-full h-full object-cover"
                 />
@@ -63,40 +69,32 @@ const Content = () => {
             <OrbitingCircles radius={100} duration={15} reverse>
   <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
     <img
-      src="https://imgs.search.brave.com/QMRPV2RqBkRJmJy8FvrxgvYpi3MXHKvDruYVoxk4Mc4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2E5MDQzODIxLTM3/NjAtNGViOC05YjVj/LTU3NmRhYmU4ZDM2/OS53ZWJwL3R5cGU9/bGlzdA"
+      src="https://imgs.search.brave.com/-SXK9ZeFGqPMaFrU6pU09jOI6sua2wuejQCQtmbdPoQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5ob3dyYXJlLmlz/L25mdF9pbWFnZXMv/bWFkbGFkcy80ZDRh/ZGVjYjRkNTNlYzlk/ZTk4MDc1OTJjYTll/ZjljNy5qcGc"
       alt="NFT 4"
       className="w-full h-full object-cover"
     />
   </div>
   <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
     <img
-      src="https://imgs.search.brave.com/QMRPV2RqBkRJmJy8FvrxgvYpi3MXHKvDruYVoxk4Mc4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2E5MDQzODIxLTM3/NjAtNGViOC05YjVj/LTU3NmRhYmU4ZDM2/OS53ZWJwL3R5cGU9/bGlzdA"
+      src="https://imgs.search.brave.com/6Juw8S9hHP9hhAsIyw1JkJYrQxeKrzDJXWxvwPZm-C0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jb2lu/LWltYWdlcy5jb2lu/Z2Vja28uY29tL25m/dF9jb250cmFjdHMv/aW1hZ2VzLzI0Mi9s/YXJnZS8zUjdzLVpW/MF80MDB4NDAwLmpw/Zz8xNzA3Mjg3MjM0"
       alt="NFT 5"
       className="w-full h-full object-cover"
     />
   </div>
   <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
     <img
-      src="https://imgs.search.brave.com/QMRPV2RqBkRJmJy8FvrxgvYpi3MXHKvDruYVoxk4Mc4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2E5MDQzODIxLTM3/NjAtNGViOC05YjVj/LTU3NmRhYmU4ZDM2/OS53ZWJwL3R5cGU9/bGlzdA"
+      src="https://imgs.search.brave.com/Z4cu-AzTcfGj-jLM7C9EmQc3E4HBj-44LVOqvVTyz90/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5ob3dyYXJlLmlz/L25mdF9pbWFnZXMv/bWFkbGFkcy85MjEy/MzdkMTJkYzYxZWY0/NjAzY2I3ZmUwODEx/ZDlkNC5qcGc"
       alt="NFT 6"
       className="w-full h-full object-cover"
     />
   </div>
 </OrbitingCircles>
 
-            {/* Center NFT (largest) */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-              {/* <div className="w-32 h-32 rounded-2xl overflow-hidden shadow-xl shadow-purple-500/50 animate-pulse">
-                <img
-                  src="https://imgs.search.brave.com/qOdf1afhDv5DVWSJ6htI4JGTLVR4HVHnaCjRqmUb48Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/LzRlMTRjMDExLTEy/OTUtNDNjNS1iNDRk/LWJhYWU3ZDVhMWZi/OS53ZWJwL3R5cGU9/bGlzdA"
-                  alt="Featured NFT"
-                  className="w-full h-full object-cover"
-                />
-              </div> */}
-            </div>
+            
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20"></div>
           </div>
           
-          {/* Caption under the orbit */}
+   
           <div className="mb-125"></div>
           <div className="absolute bottom-0  right-[-200px] transform -translate-x-1/2 text-center">
             <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-200 to-purple-100  ">
