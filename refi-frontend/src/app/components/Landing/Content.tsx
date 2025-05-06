@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import PurpleBlob from "./PurpleBlob";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
-import { File, Settings, Search } from "lucide-react";
 
 const Content = () => {
   return (

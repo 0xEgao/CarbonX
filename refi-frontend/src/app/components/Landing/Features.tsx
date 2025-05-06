@@ -1,7 +1,7 @@
 "use client";
 
 import PurpleBlob from "./PurpleBlob";
-import { Leaf, CoinsIcon, BarChart3, Recycle, Trophy, Trees } from "lucide-react";
+import { CoinsIcon, Trophy, Trees } from "lucide-react";
 
 const Features = () => {
   return (
