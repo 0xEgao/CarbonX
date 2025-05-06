@@ -1,4 +1,5 @@
 import { Flower } from 'lucide-react';
+import WalletConnect from './WalletConnect';
 
 const Header = () => {
   return (
@@ -18,9 +19,9 @@ const Header = () => {
         </div>
 
         {/* Connect Button */}
-        <button className="text-xl text-white cursor-pointer hover:bg-purple-700 font-sans py-2 px-5 rounded-xl bg-purple-800 transition duration-500">
-          Connect
-        </button>
+        <div className="flex items-center gap-2">
+          <WalletConnect />
+        </div>
       </div>
     </div>
   );
