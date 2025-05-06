@@ -1,8 +1,8 @@
 
 
-# EnvTrade 🌿🌍
+# CarbonX 🌿🌍
 
-**EnvTrade** is a decentralized NFT-based carbon offset and donation platform built on **Solana**, where environmental organizations can register and list their NFT's on our marketplace. Users and companies can purchase these NFTs to directly fund these initiatives while transparently contributing to environmental causes.
+**CarbonX** is a decentralized NFT-based carbon offset and donation platform built on **Solana**, where environmental organizations can register and list their NFT's on our marketplace. Users and companies can purchase these NFTs to directly fund these initiatives while transparently contributing to environmental causes.
 
 
 <div>
@@ -11,7 +11,7 @@
 
 # Overview
 
-EnvTrade bridges the gap between digital asset ownership and real-world ecological impact. It empowers individuals to support verified environmental organizations through NFT purchases, while allowing companies to bulk-buy NFTs as a means to transparently **offset their carbon footprint**.
+CarbonX bridges the gap between digital asset ownership and real-world ecological impact. It empowers individuals to support verified environmental organizations through NFT purchases, while allowing companies to bulk-buy NFTs as a means to transparently **offset their carbon footprint**.
 
 ## Problem:
 
@@ -27,14 +27,14 @@ EnvTrade bridges the gap between digital asset ownership and real-world ecologic
 
 ## Solution:
 
-EnvTrade leverages Solana's speed and cost-efficiency to provide:
+CarbonX leverages Solana's speed and cost-efficiency to provide:
 
 * A decentralized **marketplace of eco-NFTs**.
 * **Direct NFT purchases** that send funds to verified environmental projects.
 * **On-chain proof** of carbon offset purchases for individual users and corporate entities.
 * **Bulk NFT trading** by corporations to verifiably offset carbon emissions.
 
-## How EnvTrade Works:-
+## How CarbonX Works:-
 
 1. **Organization Onboarding**
 
@@ -83,4 +83,4 @@ EnvTrade leverages Solana's speed and cost-efficiency to provide:
 
 ### For technical deep dives or design discussions:
 
-[envtrade-notion](https://your-notion-link.com)
+[CarbonX-notion](https://your-notion-link.com)
