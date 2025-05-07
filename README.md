@@ -4,6 +4,9 @@
 
 **CarbonX** is a decentralized NFT-based carbon offset and donation platform built on **Solana**, where environmental organizations can register and list their NFT's on our marketplace. Users and companies can purchase these NFTs to directly fund these initiatives while transparently contributing to environmental causes.
 
+# What is a carbon offset?
+A carbon offset is a credit that a person or organization can buy to decrease its carbon footprint. When the number of carbon offset credits obtained is equal to an individual or organization's carbon footprint, that person or organization is carbon-neutral. Revenue generated from the purchase of carbon offsets is often -- but not always -- invested in environmentally friendly projects, like investments in green computing technologies.
+
 
 <div>
 <img src="https://sdmntpreastus2.oaiusercontent.com/files/00000000-dfcc-61f6-98cb-e1ab36cbd4af/raw?se=2025-05-06T11%3A22%3A16Z&sp=r&sv=2024-08-04&sr=b&scid=09049c0c-eb82-5dfc-9765-f6f8704d0c13&skoid=aa8389fc-fad7-4f8c-9921-3c583664d512&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-06T09%3A32%3A23Z&ske=2025-05-07T09%3A32%3A23Z&sks=b&skv=2024-08-04&sig=l5jx26al80jpFAv37AgqFj7keffY0I521tauQ3S1pmE%3D" alt="eco nft marketplace preview" width="300" height="400">
