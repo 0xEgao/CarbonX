@@ -1,7 +1,6 @@
 "use client"
 
 import { Flower } from 'lucide-react';
-import WalletConnect from './WalletConnect';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -9,6 +8,8 @@ import Link from 'next/link';
 
 // Dynamically import the TopAlert component
 const TopAlert = dynamic(() => import('./TopAlert'), { ssr: false });
+// Dynamically import the WalletConnect component
+const WalletConnect = dynamic(() => import('./WalletConnect'), { ssr: false });
 
 const Header = () => {
   const [alertMessage, setAlertMessage] = useState<string | null>(null);

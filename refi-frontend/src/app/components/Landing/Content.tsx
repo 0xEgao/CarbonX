@@ -3,13 +3,71 @@
 import PurpleBlob from "./PurpleBlob";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 import Link from "next/link";
+import { useState } from "react";
 
-
-
+// import { createClient } from '@supabase/supabase-js'
+// const supabaseUrl = 'https://nedbolwpdafcuctkqyya.supabase.co'
+// const supabaseKey : any = process.env.SUPABASE_KEY
+// const supabase = createClient(supabaseUrl, supabaseKey);
 
 const Content = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [form, setForm] = useState({ name: '', email: '', country: '', field: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+    // Optionally: send to Supabase or show a success message
+    setTimeout(() => {
+      setShowModal(false);
+      setSubmitted(false);
+      setForm({ name: '', email: '', country: '', field: '' });
+    }, 2000);
+  };
+
   return (
     <div className="relative bg-black text-white h-[600px] w-full max-w-[1800px] rounded-2xl px-16 py-20 mx-auto overflow-hidden">
+      {/* Modal Backdrop & Form */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm animate-fade-in">
+          <div className="bg-gradient-to-br from-gray-900 via-black to-purple-900 rounded-2xl shadow-2xl p-8 w-full max-w-md relative animate-fade-in-up">
+            <button onClick={() => setShowModal(false)} className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">×</button>
+            {!submitted ? (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <h2 className="text-2xl font-bold mb-2 text-center bg-gradient-to-r from-green-300 to-purple-300 bg-clip-text text-transparent">Join the Waitlist</h2>
+                <div>
+                  <label className="block text-sm mb-1">Name</label>
+                  <input name="name" value={form.name} onChange={handleChange} required className="w-full rounded-lg px-4 py-2 bg-black/40 border border-purple-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                </div>
+                <div>
+                  <label className="block text-sm mb-1">Email</label>
+                  <input name="email" type="email" value={form.email} onChange={handleChange} required className="w-full rounded-lg px-4 py-2 bg-black/40 border border-purple-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                </div>
+                <div>
+                  <label className="block text-sm mb-1">Country</label>
+                  <input name="country" value={form.country} onChange={handleChange} required className="w-full rounded-lg px-4 py-2 bg-black/40 border border-purple-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                </div>
+                <div>
+                  <label className="block text-sm mb-1">Field of Impact</label>
+                  <input name="field" value={form.field} onChange={handleChange} required placeholder="e.g. Forest, Ocean, Air..." className="w-full rounded-lg px-4 py-2 bg-black/40 border border-purple-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                </div>
+                <button type="submit" className="w-full cursor-pointers py-3 rounded-lg bg-white text-black font-bold hover:from-green-600 hover:to-purple-700 transition">Submit</button>
+              </form>
+            ) : (
+              <div className="text-center py-12">
+                <div className="text-4xl mb-4">🎉</div>
+                <div className="text-lg font-bold mb-2">Thank you for joining the waitlist!</div>
+                <div className="text-gray-400">We'll keep you updated.</div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       {/* Enhanced Purple Background Blobs */}
       <PurpleBlob className="top-[-100px] right-[-150px] scale-125" />
       <div className="absolute -top-10 -right-10 w-60 h-60 bg-purple-700 rounded-full blur-3xl opacity-50"></div>
@@ -26,7 +84,7 @@ const Content = () => {
             Do carbon offsetting by funding environment related projects.
           </p>
           <div className="flex gap-5">
-            <button className="bg-green-500 cursor-pointer text-black font-bold py-4 px-8 rounded-lg hover:bg-green-600 transition transform ">
+            <button onClick={() => setShowModal(true)} className="bg-green-500 cursor-pointer text-black font-bold py-4 px-8 rounded-lg hover:bg-green-600 transition transform ">
                 Join the Waitlist
             </button>
             <Link href="#features">
@@ -90,12 +148,8 @@ const Content = () => {
   </div>
 </OrbitingCircles>
 
-            
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20"></div>
           </div>
-          
-   
-          <div className="mb-125"></div>
           <div className="absolute bottom-0  right-[-200px] transform -translate-x-1/2 text-center">
             <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-200 to-purple-100  ">
               Mint and Trade Exclusive NFTs
@@ -103,7 +157,6 @@ const Content = () => {
           </div>
         </div>
       </div>
-      
       {/* Subtle grid overlay for depth */}
       <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
     </div>
