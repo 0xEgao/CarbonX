@@ -1,17 +1,19 @@
 use anchor_lang::prelude::*;
-//Enums
+
 #[derive(AnchorSerialize, AnchorDeserialize, Clone, Debug)]
 pub enum SourceType {
     Solar,
+    Wind,
+    Water,
+    Reforestation,
 }
 
-#[derive(AnchorSerialize, AnchorDeserialize, Clone, Debug)]
-pub enum EnergyUnits {
-    MWh,
-    KWh,
+#[derive(AnchorDeserialize, AnchorSerialize, Clone, Debug)]
+pub enum CarbonUnits {
+    TCO2e, //this one metric ton of Co2 equivalent
 }
 
-#[derive(AnchorSerialize, AnchorDeserialize, Clone, Debug)]
+#[derive(AnchorDeserialize, AnchorSerialize, Clone, Debug)]
 pub enum Country {
     UnitedKingdom,
     SouthAfrica,
@@ -65,8 +67,9 @@ pub enum Country {
     Sweden,
     Switzerland,
 }
+
 #[derive(AnchorDeserialize, AnchorSerialize)]
-pub struct CardArgs {
+pub struct Card {
     pub name: String,
     pub uri: String,
 }

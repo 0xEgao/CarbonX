@@ -1,5 +1,7 @@
-use crate::Marketplace;
 use anchor_lang::prelude::*;
+
+use crate::Marketplace;
+
 #[derive(Accounts)]
 #[instruction(name: String)]
 pub struct InitializeMarketplace<'info> {
@@ -15,12 +17,11 @@ pub struct InitializeMarketplace<'info> {
     pub marketplace: Account<'info, Marketplace>,
     #[account(
         seeds=[b"treasury",marketplace.key().as_ref()],
-        bump
+        bump,
     )]
     pub treasury: SystemAccount<'info>,
     pub system_program: Program<'info, System>,
 }
-
 impl<'info> InitializeMarketplace<'info> {
     pub fn init_marketplace(
         &mut self,
@@ -33,7 +34,6 @@ impl<'info> InitializeMarketplace<'info> {
             fee,
             bump: bumps.marketplace,
             treasury_bump: bumps.treasury,
-
             name,
         });
         Ok(())

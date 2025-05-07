@@ -1,18 +1,17 @@
 [toolchain]
-package_manager = "yarn"
 
 [features]
 resolution = true
 skip-lint = false
 
 [programs.localnet]
-refi_contract = "8cUREkdAPqjXTYfagGcspNGYmpHqcxYUkzuNG4dXUUrB"
+ecomint = "BPBKb4ogsKGbF4RGZTj3urRWemC584WT4gESJacNBzF4"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
+cluster = "Localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

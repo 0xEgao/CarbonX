@@ -1,82 +1,93 @@
-use crate::errors::ErrorCode;
-use crate::CarbonCredit;
+use crate::error::ErrorCode;
+use crate::Ecomint;
 use crate::Marketplace;
 use anchor_lang::prelude::*;
+
 use anchor_spl::{
     associated_token::AssociatedToken,
     token::{transfer_checked, TransferChecked},
     token_interface::{Mint, TokenAccount, TokenInterface},
 };
 
+//send usdc/sol from buyer to organisation account
+
 #[derive(Accounts)]
-pub struct SendUsdc<'info> {
+pub struct Send<'info> {
     #[account(mut)]
-    pub taker: Signer<'info>, // Buyer - Sarah
-    #[account(mut,address=carbon_credit.maker)]
-    pub maker: SystemAccount<'info>, // Seller - Alex
+    pub taker: Signer<'info>, //buyer account
+
+    #[account(mut, address=eco_mint.maker)]
+    pub maker: SystemAccount<'info>, //seller-organisation account
+
     #[account(mut,address=marketplace.admin)]
     pub admin: SystemAccount<'info>,
-    #[account(mut)]
-    pub mint: InterfaceAccount<'info, Mint>, // USDC Mint
 
+    #[account(mut)]
+    pub mint: InterfaceAccount<'info, Mint>, //USDC mint
     #[account(
         mut,
-        has_one = maker,
-        seeds = [b"carbon_credit".as_ref(), carbon_credit.maker.key().as_ref()],
+        has_one=maker,
+        seeds=[b"ecomint",eco_mint.maker.key().as_ref()],
         bump
     )]
-    pub carbon_credit: Account<'info, CarbonCredit>, // Carbon credit info (price, remaining supply)
+    pub eco_mint: Account<'info, Ecomint>,
+
     #[account(
-        seeds=[b"marketplace",marketplace.name.as_str().as_bytes()],
+        seeds=[b"marketplace",eco_mint.maker.key().as_ref()],
         bump
     )]
-    pub marketplace: Account<'info, Marketplace>, // Marketplace fee structure
+    pub marketplace: Account<'info, Marketplace>,
+
     #[account(
         init_if_needed,
-        payer = taker,
-        associated_token::mint = mint,
-        associated_token::authority = admin
+        payer=taker,
+        associated_token::mint=taker,
+        associated_token::authority=admin
     )]
     pub admin_usdc: InterfaceAccount<'info, TokenAccount>,
 
     #[account(
         init_if_needed,
-        payer = taker,
-        associated_token::mint = mint,
-        associated_token::authority = taker
+        payer=taker,
+        associated_token::mint=taker,
+        associated_token::authority=taker,
     )]
     pub taker_usdc: InterfaceAccount<'info, TokenAccount>,
+
     #[account(
         init_if_needed,
-        payer = taker,
-        associated_token::mint = mint,
-        associated_token::authority = maker
+        payer=taker,
+        associated_token::mint=mint,
+        associated_token::authority=maker,
     )]
     pub maker_usdc: InterfaceAccount<'info, TokenAccount>,
 
-    pub associated_token_program: Program<'info, AssociatedToken>,
-    pub token_program: Interface<'info, TokenInterface>,
     pub system_program: Program<'info, System>,
+    pub token_program: Interface<'info, TokenInterface>,
+    pub associated_token_program: Program<'info, AssociatedToken>,
 }
-impl<'info> SendUsdc<'info> {
+
+impl<'info> Send<'info> {
     pub fn send_usdc(&mut self, amount: u16) -> Result<()> {
-        // Calculate total USDC cost
+        //calculate usdc
         let total_usdc = self
-            .carbon_credit
-            .price_per_carbon_credit
+            .eco_mint
+            .offset_value
             .checked_mul(amount)
             .ok_or(ErrorCode::CalculationOverflow)?;
-        // Apply marketplace fee
+
+        //apply marketplace fee
         let fee = total_usdc
             .checked_mul(self.marketplace.fee)
             .ok_or(ErrorCode::CalculationOverflow)?
             .checked_div(100)
             .ok_or(ErrorCode::CalculationOverflow)?;
+
         let seller_amount = total_usdc
             .checked_sub(fee)
             .ok_or(ErrorCode::CalculationUnderflow)?;
 
-        // Transfer USDC from taker to maker (purchase amount)
+        //Transfer usdc from buyer to org account
         let transfer = TransferChecked {
             from: self.taker_usdc.to_account_info(),
             to: self.maker_usdc.to_account_info(),
@@ -84,37 +95,43 @@ impl<'info> SendUsdc<'info> {
             authority: self.taker.to_account_info(),
         };
         let cpi_ctx = CpiContext::new(self.token_program.to_account_info(), transfer);
+
         transfer_checked(
             cpi_ctx,
             seller_amount.try_into().unwrap(),
             self.mint.decimals,
         )?;
-
         Ok(())
     }
+
     pub fn send_fee(&mut self, amount: u16) -> Result<()> {
-        // Calculate total USDC cost
+        //total usdc fee
         let total_usdc = self
-            .carbon_credit
-            .price_per_carbon_credit
+            .eco_mint
+            .offset_value
             .checked_mul(amount)
             .ok_or(ErrorCode::CalculationOverflow)?;
-        // Apply marketplace fee
+
+        //marketplace fee
         let fee = total_usdc
             .checked_mul(self.marketplace.fee)
             .ok_or(ErrorCode::CalculationOverflow)?
             .checked_div(100)
             .ok_or(ErrorCode::CalculationOverflow)?;
 
-        // Transfer Fee to Admin (Marketplace Owner)
+        //transfer fee to Marketplace owner i.e the admin
+
         let fee_transfer = TransferChecked {
             from: self.taker_usdc.to_account_info(),
             to: self.admin_usdc.to_account_info(),
             mint: self.mint.to_account_info(),
             authority: self.taker.to_account_info(),
         };
+
         let fee_ctx = CpiContext::new(self.token_program.to_account_info(), fee_transfer);
+
         transfer_checked(fee_ctx, fee.try_into().unwrap(), self.mint.decimals)?;
+
         Ok(())
     }
 }

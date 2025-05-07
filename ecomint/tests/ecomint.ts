@@ -1,12 +1,12 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
-import { RefiContract } from "../target/types/refi_contract";
+import { Ecomint } from "../target/types/ecomint";
 
-describe("refi-contract", () => {
+describe("ecomint", () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(anchor.AnchorProvider.env());
 
-  const program = anchor.workspace.refiContract as Program<RefiContract>;
+  const program = anchor.workspace.Ecomint as Program<Ecomint>;
 
   it("Is initialized!", async () => {
     // Add your test here.

@@ -1,12 +1,12 @@
 [package]
-name = "refi-contract"
+name = "ecomint"
 version = "0.1.0"
 description = "Created with Anchor"
 edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "refi_contract"
+name = "ecomint"
 
 [features]
 default = []
@@ -14,11 +14,9 @@ cpi = ["no-entrypoint"]
 no-entrypoint = []
 no-idl = []
 no-log-ix-name = []
-idl-build = ["anchor-spl/idl-build"]
-
+idl-build = ["anchor-lang/idl-build"]
 
 [dependencies]
 anchor-lang = { version = "=0.30.1", features = ["init-if-needed"] }
-anchor-spl = "0.30.1"
+anchor-spl = { version = "=0.30.1", features = ["metadata"] }
 mpl-core = { version = "=0.9.0", features = ["anchor"] }
-proc-macro2 = "1.0.95"
