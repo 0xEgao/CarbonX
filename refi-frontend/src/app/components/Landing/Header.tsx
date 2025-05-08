@@ -4,12 +4,15 @@ import { Flower } from 'lucide-react';
 import WalletConnect from './WalletConnect';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
+// import SortDropdown from '../marketplace/SortDropdown';
 
 // Dynamically import the TopAlert component
 const TopAlert = dynamic(() => import('./TopAlert'), { ssr: false });
 
 const Header = () => {
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<'recent' | 'price-asc' | 'price-desc' | 'volume-desc'>('recent');
 
   const handleAlert = (feature: string) => {
     setAlertMessage(`The Feature Will be Live soon!`);
@@ -39,12 +42,13 @@ const Header = () => {
           >
             Register Org
           </h1>
+          <Link href="/marketplace">
           <h1
             className="text-xl font-sans cursor-pointer"
-            onMouseEnter={() => handleAlert('Marketplace')}
-          >
+            >
             Marketplace
           </h1>
+            </Link>
         </div>
 
         {/* Connect Button */}
@@ -53,6 +57,8 @@ const Header = () => {
         </div>
       </div>
         {alertMessage && <TopAlert message={alertMessage} />}
+
+      {/* <SortDropdown value={sortBy} onChange={setSortBy} /> */}
     </div>
   );
 };
