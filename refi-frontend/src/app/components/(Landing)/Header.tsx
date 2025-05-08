@@ -16,41 +16,55 @@ const Header = () => {
   const [sortBy, setSortBy] = useState<'recent' | 'price-asc' | 'price-desc' | 'volume-desc'>('recent');
 
   const handleAlert = (feature: string) => {
-    setAlertMessage(`The Feature Will be Live soon!`);
+    setAlertMessage(``);
     setTimeout(() => {
       setAlertMessage(null); // Hide alert after 3 seconds
     }, 3000); // You can adjust this timeout duration
   };
 
   return (
-    <div className="border-2 border-gray-900 rounded-full py-5 px-10 w-[800px] mx-auto text-white">
+    <div className="border-2 border-gray-900 rounded-full py-5 mt-5 px-10 w-max mx-auto text-white">
       {/* Top Alert */}
     
 
-      <div className="flex items-center justify-between">
+      <div className="flex w-max items-center justify-between">
         {/* Logo */}
+        <Link href="/">
         <div className="flex items-center gap-2">
           <Flower className="text-white" />
           <h1 className="text-xl font-bold">CarbonX</h1>
         </div>
+        </Link>
 
         {/* Navigation Items */}
-        <div className="flex gap-10">
-          <h1 className="text-xl font-sans cursor-pointer transition duration-1000">Home</h1>
+        <div className="flex gap-10 px-20">
           <h1
             className="text-xl font-sans cursor-pointer"
             onMouseEnter={() => handleAlert('Register Org')}
           >
-            Register Org
+            Register and Mint
           </h1>
           <Link href="/marketplace">
           <h1
             className="text-xl font-sans cursor-pointer"
             >
-            Marketplace
+             Explore NFTs
           </h1>
             </Link>
+            
+
+            <Link href="#features">
+            <h1
+            className="text-xl font-sans cursor-pointer"
+            onMouseEnter={() => handleAlert('Register Org')}
+            >
+             How it works
+          </h1>
+            </Link>
+            
         </div>
+
+        
 
         {/* Connect Button */}
         <div className="flex items-center gap-2">
