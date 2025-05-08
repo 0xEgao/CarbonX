@@ -1,85 +1,136 @@
+# 🌱 CarbonX — Turning Donations into Digital Proof of Environmental Action
 
+CarbonX is a Web3 donation platform that allows verified, impactful environmental organizations to raise funds through **impact-based NFTs**. These NFTs are not just art — they’re minted **only when someone donates**, tying real-world impact to blockchain transparency.
 
-# CarbonX 🌿🌍
+---
 
-**CarbonX** is a decentralized NFT-based carbon offset and donation platform built on **Solana**, where environmental organizations can register and list their NFT's on our marketplace. Users and companies can purchase these NFTs to directly fund these initiatives while transparently contributing to environmental causes.
+## 📌 How It Works — At a Glance
 
-# What is a carbon offset?
-A carbon offset is a credit that a person or organization can buy to decrease its carbon footprint. When the number of carbon offset credits obtained is equal to an individual or organization's carbon footprint, that person or organization is carbon-neutral. Revenue generated from the purchase of carbon offsets is often -- but not always -- invested in environmentally friendly projects, like investments in green computing technologies.
+```mermaid
+graph TD
+    A[Org Registration] --> B[CarbonX Verifies Org]
+    B --> C[Org Submits Impact Project]
+    C --> D[CarbonX Calculates NFT Price Based on Impact]
+    D --> E[Project Listed on Marketplace (NFT Pre-Mint)]
+    E --> F[User Donates to Mint NFT]
+    F --> G[Donation Sent to Org & NFT Minted to Donor]
+```
 
+---
 
-<div>
-<img src="https://sdmntpreastus2.oaiusercontent.com/files/00000000-dfcc-61f6-98cb-e1ab36cbd4af/raw?se=2025-05-08T08%3A25%3A34Z&sp=r&sv=2024-08-04&sr=b&scid=00000000-0000-0000-0000-000000000000&skoid=7399a3a4-0259-4d43-bcd6-a56ceeb4c28b&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-08T06%3A04%3A28Z&ske=2025-05-09T06%3A04%3A28Z&sks=b&skv=2024-08-04&sig=TalVC1Bm42J4J7PeuGak7FZW9MlxUNIMFdNf2iHju7s%3D" alt="eco nft marketplace preview" width="300" height="400">
-</div>
+## 🛠️ Platform Flow in Detail
 
-# Overview
+### ✅ 1. Organization Registration
 
-CarbonX bridges the gap between digital asset ownership and real-world ecological impact. It empowers individuals to support verified environmental organizations through NFT purchases, while allowing companies to bulk-buy NFTs as a means to transparently **offset their carbon footprint**.
+Organizations submit:
 
-## Problem:
+* Legal documents (e.g., 80G/12A, NGO Darpan ID)
+* Description of mission and past projects
+* Verifiable certificates or media links
 
-1. **Funding Barriers for Environmental NGOs**
+### 🔎 2. Verification
 
-   * Many small to medium-sized environmental organizations struggle with consistent funding and visibility.
-   * Donors have little transparency on how their funds are used.
+CarbonX team (with optional LLM assistance):
 
-2. **Corporate Greenwashing**
+* Checks certificate authenticity
+* Reviews media and history
+* Scores the org’s transparency & track record
 
-   * Companies often claim carbon offsets without verifiable records or decentralized proof.
-   * Traditional carbon markets lack transparency and public accountability.
+### 📊 3. Impact Project Submission
 
-## Solution:
+Each project includes:
 
-CarbonX leverages Solana's speed and cost-efficiency to provide:
+* Activity type (tree planting, ocean cleanup, etc.)
+* Units of impact (e.g., 5,000 trees)
+* Estimated CO₂ reduction
+* Execution cost
+* Duration & location
+* Project image (for NFT)
 
-* A decentralized **marketplace of eco-NFTs**.
-* **Direct NFT purchases** that send funds to verified environmental projects.
-* **On-chain proof** of carbon offset purchases for individual users and corporate entities.
-* **Bulk NFT trading** by corporations to verifiably offset carbon emissions.
+### 💰 4. Impact-Based NFT Valuation
 
-## How CarbonX Works:-
+CarbonX uses a formula to suggest NFT price:
 
-1. **Organization Onboarding**
+```
+NFT Price = (Impact Quantity × Impact Unit Price) × Transparency Modifier
+```
 
-   * Verified environment supporting organisations like NGOs,EV charging provider,etc register on the platform and provide project details.
-   * Accoring to their project details provided,env-related NFTs gets mint (e.g., rainforest conservation, ocean cleanup, etc.)and displayed on the marketplace.
-   * Each organisation will have their collections,in which they can add different nft's as per their proof-of-work.
+Example:
 
-2. **NFT Marketplace**
+```
+5,000 Trees × $1.20 = $6,000
+Verified by media → +20% modifier
+Final NFT Price = $7,200
+```
 
-   * Users explore and purchase NFTs of their choice.
-   * Each NFT represents support for a real-world ecological initiative.
+### 🖼️ 5. Marketplace Listing (Pre-Mint)
 
-3. **Direct Funding**
+* NFT is displayed in the marketplace with project details.
+* It is **not minted yet** — only visible to potential donors.
 
-   * The majority of NFT revenue goes directly to the respective NGO's wallet.
-   * Users get a digital asset they can showcase or trade.
+### 🎁 6. Donation & NFT Minting
 
-4. **Corporate Carbon Offset**
+* A donor selects a project and donates the suggested amount.
+* Only then is the NFT minted and sent to the donor’s wallet.
+* 100% of funds (minus gas/fees) go directly to the verified organization.
 
-   * Larger companies can bulk-buy NFTs.
-   * NFT ownership acts as **on-chain, verifiable carbon offset documentation**.
+---
 
-5. **Impact Dashboard**
+## 🧠 Powered by LLM APIs
 
-   * A user-facing dashboard tracks contributions and impact metrics like CO₂ offset or number of trees planted.
+CarbonX uses LLMs to:
 
+* Analyze submitted documents and impact claims
+* Score credibility and cost-efficiency
+* Refine price suggestions based on project context
 
-## Features:-
+---
 
-1. Organization registration and verification.
-2. NFT minting for real-world environmental initiatives.
-3. Marketplace for browsing and buying eco-NFTs.
-4. Wallet integration and direct funding flow.
-5. Dashboard for tracking personal or corporate impact.
-6. Carbon offset record generation for enterprises.
+## 🛡️ Trust & Transparency
 
-## Tech Stack:-
+* **Proof-Based Listings**: No NFT is listed without backend and document verification
+* **Impact Tied to Donation**: Minting = Money = Measurable Impact
+* **Public Metrics**: Donors and users can see stats like total CO₂ offset, total funds raised, and projects supported
 
-* **Blockchain**: Solana
-* **Smart Contract Framework**: Anchor
-* **Frontend**: Next.js + TypeScript + Tailwind + Framer Motion
-* **NFT Storage**: Arweave/IPFS via Metaplex
-* **Backend Services**: Supabase
-* **Authentication**: Solana wallet adapters
+---
 
+## 🔧 Tech Stack (Sample)
+
+* **Frontend**: React + TailwindCSS
+* **Backend**: Node.js / Express / Supabase
+* **Smart Contracts**: Solidity (or Rust if on Solana)
+* **NFT Metadata**: IPFS or Arweave
+* **LLM API**: OpenAI / LangChain for verification support
+
+---
+
+## 📌 Example Project Card (UI)
+
+```
+Project: "Green Himalayas — Tree Plantation"
+Impact: 5,000 Trees
+Location: Himachal Pradesh, India
+Suggested Donation: $7,200
+Status: Verified ✅
+Action: [Donate & Mint NFT]
+```
+
+---
+
+## 🤝 Why CarbonX?
+
+* Help real organizations build a better planet
+* Get a digital badge of honor (NFT) for your contribution
+* Track verified, transparent impact
+
+---
+
+## 📬 Contact
+
+Want to list your org or partner with us?
+Email: [contact@carbonx.green](mailto:contact@carbonx.green)
+Website: [carbonx.green](https://carbonx.green)
+
+---
+
+> 🌍 CarbonX — Where Blockchain Meets Climate Action.
