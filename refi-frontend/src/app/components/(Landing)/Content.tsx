@@ -1,19 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import Link from "next/link";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 
+interface FormData {
+  name: string;
+  email: string;
+  country: string;
+  field: string;
+}
+
 const Content = () => {
   const [showModal, setShowModal] = useState(false);
-  const [form, setForm] = useState({ name: '', email: '', country: '', field: '' });
+  const [form, setForm] = useState<FormData>({ name: '', email: '', country: '', field: '' });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
     setTimeout(() => {
@@ -106,7 +113,7 @@ const Content = () => {
         </div>
       </div>
 
-      {/* NFT Trading Section */}
+      {/* Donation Section */}
       <div className="mt-40 pt-20 border-t border-gray-800">
         <div className="text-center mb-16">
           <h2 id="About" className="text-4xl font-bold mb-6 text-white">Donate with Impact</h2>
@@ -185,7 +192,7 @@ const Content = () => {
               <h3 className="text-white font-semibold mb-2">Donate & Impact</h3>
               <p className="text-gray-400 text-sm">Support causes and receive proof of impact</p>
             </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>

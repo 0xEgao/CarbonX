@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import { motion } from "framer-motion";
-import { UserPlus, FileCheck, Brain, CoinsIcon, TrendingUp } from "lucide-react";
+import { UserPlus, FileCheck, Brain, CoinsIcon } from "lucide-react";
 
 interface FeatureI {
   id?: string;
@@ -102,7 +102,7 @@ const Features: FC<FeatureI> = ({ id }) => {
             </ul>
           </motion.div>
 
-          {/* Step 3 - AI Pricing */}
+          {/* Step 3 - Project Listing */}
           <motion.div 
             className="rounded-2xl p-6 border border-gray-800 hover:border-gray-700 transition-all h-full flex flex-col"
             variants={itemVariants}
@@ -127,7 +127,7 @@ const Features: FC<FeatureI> = ({ id }) => {
             </ul>
           </motion.div>
 
-          {/* Step 4 - Marketplace */}
+          {/* Step 4 - Donations */}
           <motion.div 
             className="rounded-2xl p-6 border border-gray-800 hover:border-gray-700 transition-all h-full flex flex-col"
             variants={itemVariants}
