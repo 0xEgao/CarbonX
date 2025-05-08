@@ -2,21 +2,7 @@
 
 CarbonX is a Web3 donation platform that allows verified, impactful environmental organizations to raise funds through **impact-based NFTs**. These NFTs are not just art — they’re minted **only when someone donates**, tying real-world impact to blockchain transparency.
 
----
 
-## 📌 How It Works — At a Glance
-
-```mermaid
-graph TD
-  A[Organization Registration] --> B[Verification by CarbonX & LLM]
-  B --> C[Impact Project Submission]
-  C --> D[Environmental Impact Evaluation]
-  D --> E[NFT Listed on Marketplace (Pre-Mint)]
-  E --> F[User Donates → NFT Minted → Funds Released to Org]
-
-```
-
----
 
 ## 🧰 Platform Flow in Detail
 
@@ -135,9 +121,7 @@ Action: [Donate & Mint NFT]
 ## 📬 Contact
 
 Want to list your organization or partner with us?
-
-* Email: [contact@carbonx.green](mailto:contact@carbonx.green)
-* Website: [https://carbonx.green](https://carbonx.green)
+* Website: [https://carbonx.green]([https://carbonx-sol.vercel.app](https://carbonx-sol.vercel.app))
 
 ---
 
