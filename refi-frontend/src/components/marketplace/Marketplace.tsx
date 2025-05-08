@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { Search, Filter } from 'lucide-react';
-import NFTCard from './NFTCard';
+import NFTCard from '@/app/components/marketplace/NFTCard';
 import SortDropdown from './SortDropdown';
 import { mockNFTs, NFT } from './mockData';
 
