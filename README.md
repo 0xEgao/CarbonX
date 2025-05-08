@@ -6,6 +6,7 @@ CarbonX is a Web3 donation platform that allows verified, impactful environmenta
 
 ## 📌 How It Works — At a Glance
 
+```mermaid
 graph TD
   A[Organization Registration] --> B[Verification by CarbonX & LLM]
   B --> C[Impact Project Submission]
@@ -13,6 +14,9 @@ graph TD
   D --> E[NFT Listed on Marketplace (Pre-Mint)]
   E --> F[User Donates → NFT Minted → Funds Released to Org]
 
+```
+
+---
 
 ## 🧰 Platform Flow in Detail
 
