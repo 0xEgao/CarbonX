@@ -121,7 +121,7 @@ Action: [Donate & Mint NFT]
 ## 📬 Contact
 
 Want to list your organization or partner with us?
-* Website: [https://carbonx.green]([https://carbonx-sol.vercel.app](https://carbonx-sol.vercel.app))
+* Website: [https://carbonx-sol.vercel.app]([https://carbonx-sol.vercel.app](https://carbonx-sol.vercel.app))
 
 ---
 
