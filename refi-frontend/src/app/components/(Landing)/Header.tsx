@@ -38,12 +38,14 @@ const Header = () => {
 
         {/* Navigation Items */}
         <div className="flex gap-10 px-20">
+        <Link href="/register">
           <h1
             className="text-xl font-sans cursor-pointer"
             onMouseEnter={() => handleAlert('Register Org')}
-          >
+            >
             Register and Mint
           </h1>
+            </Link>
           <Link href="/marketplace">
           <h1
             className="text-xl font-sans cursor-pointer"

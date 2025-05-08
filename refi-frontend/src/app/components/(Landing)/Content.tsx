@@ -73,10 +73,10 @@ const Content = () => {
         {/* Left Side - Text Content */}
         <div className="max-w-xl text-center md:text-left">
           <h1 className="text-5xl font-bold mb-6 text-white">
-            Incentivize your Carbon Offsets
+            Support Environmental Causes
           </h1>
           <p className="text-xl text-gray-300 mb-10">
-            Do carbon offsetting by Trading Impact NFTs.
+            Donate to verified environmental organizations and receive impact NFTs as proof of your contribution.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <button 
@@ -109,12 +109,12 @@ const Content = () => {
       {/* NFT Trading Section */}
       <div className="mt-40 pt-20 border-t border-gray-800">
         <div className="text-center mb-16">
-          <h2 id="About" className="text-4xl font-bold mb-6 text-white">Trade Impact NFTs</h2>
+          <h2 id="About" className="text-4xl font-bold mb-6 text-white">Donate with Impact</h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             <span className="block text-xl font-bold mb-4 text-white">*Not another NFT Marketplace</span>
-            We're revolutionizing how environmental organizations fund their initiatives. 
-            By minting Impact NFTs, organizations can generate sustainable revenue while making a real environmental difference. 
-            Unique elliptic curve pricing mechanism ensures fair value for both creators and buyers, <br /> higher Carbon offset higher the price.
+            We're revolutionizing how environmental organizations receive donations. 
+            By donating to verified projects, you receive an Impact NFT that represents your contribution to environmental causes. 
+            Each NFT is minted only upon donation and represents real environmental impact verified by AI.
           </p>
         </div>
 
@@ -175,17 +175,17 @@ const Content = () => {
           <div className="absolute bottom-[-170px] left-0 right-0 flex justify-center gap-8">
             <div className="bg-gray-900/50 backdrop-blur-sm p-4 rounded-lg border border-gray-800">
               <h3 className="text-white font-semibold mb-2">Register Organization</h3>
-              <p className="text-gray-400 text-sm">Create your profile and start minting impact NFTs</p>
+              <p className="text-gray-400 text-sm">Create your profile and start receiving donations</p>
             </div>
             <div className="bg-gray-900/50 backdrop-blur-sm p-4 rounded-lg border border-gray-800">
-              <h3 className="text-white font-semibold mb-2">Dynamic Pricing</h3>
-              <p className="text-gray-400 text-sm">Prices adjust automatically using elliptic curve mechanism</p>
+              <h3 className="text-white font-semibold mb-2">Impact Verification</h3>
+              <p className="text-gray-400 text-sm">AI-powered verification of environmental impact</p>
             </div>
             <div className="bg-gray-900/50 backdrop-blur-sm p-4 rounded-lg border border-gray-800">
-              <h3 className="text-white font-semibold mb-2">Profit & Impact</h3>
-              <p className="text-gray-400 text-sm">Generate revenue while making environmental impact</p>
+              <h3 className="text-white font-semibold mb-2">Donate & Impact</h3>
+              <p className="text-gray-400 text-sm">Support causes and receive proof of impact</p>
             </div>
-          </div>
+            </div>
         </div>
       </div>
     </div>

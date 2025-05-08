@@ -4,6 +4,8 @@ import Image from "next/image";
 import Favicon from "../../favicon.ico";
 import { motion } from "framer-motion";
 
+
+
 export default function Footer() {
   return (
     <footer className="text-sm text-gray-400 py-12 px-6 mt-24 border-t border-gray-800">

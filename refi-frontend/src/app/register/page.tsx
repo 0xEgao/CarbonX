@@ -302,25 +302,14 @@ const Register: NextPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-black text-white">
-      <Head>
-        <title>CarbonX Register</title>
-        <meta name="description" content="Register your organization's NFTs" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <header className="bg-black py-6 border-b border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold">CarbonX Register</h1>
-          <p className="text-gray-400 mt-1">Create your organisation NFT's here</p>
-        </div>
-      </header>
+     
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="lg:col-span-2">
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-xl overflow-hidden">
-              <div className="p-1 bg-gradient-to-r from-blue-500 via-purple-500 to-green-500">
-                <div className="bg-gray-900 p-6 sm:p-8">
+            <div className=" rounded-2xl shadow-xl overflow-hidden">
+              <div className="p-1 py-20">
+                <div className=" p-6 sm:p-8">
                   <h2 className="text-2xl font-bold mb-6">Register Your NFT</h2>
                   
                   {/* Progress bar */}

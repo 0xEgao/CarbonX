@@ -40,7 +40,7 @@ const Features: FC<FeatureI> = ({ id }) => {
       >
         <h2 className="text-4xl font-bold mb-6 text-white">How CarbonX Works</h2>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-          From registration to trading, our platform ensures verified environmental impact through AI-powered verification
+          From registration to donation, our platform ensures verified environmental impact through AI-powered verification
         </p>
       </motion.div>
 
@@ -63,12 +63,12 @@ const Features: FC<FeatureI> = ({ id }) => {
             </div>
             <h3 className="text-xl font-bold mb-3 text-white">1. Register</h3>
             <p className="text-gray-300 mb-4 text-sm">
-              Create your profile as an individual or organization. Choose your impact category: Solar, Air, Water, Wind, or Forest.
+              Create your profile as an environmental organization. Choose your impact category: Solar, Air, Water, Wind, or Forest.
             </p>
             <ul className="space-y-2 text-gray-400 text-sm mt-auto">
               <li className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
-                <span>Individual or Organization</span>
+                <span>Organization Profile</span>
               </li>
               <li className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
@@ -88,7 +88,7 @@ const Features: FC<FeatureI> = ({ id }) => {
             </div>
             <h3 className="text-xl font-bold mb-3 text-white">2. Verify Impact</h3>
             <p className="text-gray-300 mb-4 text-sm">
-              Upload certificates and proof of your environmental impact. Our AI verifies your carbon offset claims.
+              Upload certificates and proof of your environmental impact. Our AI verifies your impact claims.
             </p>
             <ul className="space-y-2 text-gray-400 text-sm mt-auto">
               <li className="flex items-center gap-2">
@@ -111,9 +111,9 @@ const Features: FC<FeatureI> = ({ id }) => {
             <div className="bg-gray-900/50 p-4 rounded-full w-14 h-14 flex items-center justify-center mb-4">
               <Brain className="w-7 h-7 text-white" />
             </div>
-            <h3 className="text-xl font-bold mb-3 text-white">3. AI Valuation</h3>
+            <h3 className="text-xl font-bold mb-3 text-white">3. List Project</h3>
             <p className="text-gray-300 mb-4 text-sm">
-              Our LLM analyzes your impact and determines the initial NFT price based on carbon offset metrics.
+              Our AI analyzes your impact and helps set donation goals based on environmental impact metrics.
             </p>
             <ul className="space-y-2 text-gray-400 text-sm mt-auto">
               <li className="flex items-center gap-2">
@@ -122,7 +122,7 @@ const Features: FC<FeatureI> = ({ id }) => {
               </li>
               <li className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
-                <span>Initial Price Setting</span>
+                <span>Donation Goals</span>
               </li>
             </ul>
           </motion.div>
@@ -136,18 +136,18 @@ const Features: FC<FeatureI> = ({ id }) => {
             <div className="bg-gray-900/50 p-4 rounded-full w-14 h-14 flex items-center justify-center mb-4">
               <CoinsIcon className="w-7 h-7 text-white" />
             </div>
-            <h3 className="text-xl font-bold mb-3 text-white">4. Trade</h3>
+            <h3 className="text-xl font-bold mb-3 text-white">4. Receive Donations</h3>
             <p className="text-gray-300 mb-4 text-sm">
-              Your NFT is listed on our marketplace. Prices adjust dynamically based on demand and supply.
+              Donors can support your project and receive an Impact NFT as proof of their contribution.
             </p>
             <ul className="space-y-2 text-gray-400 text-sm mt-auto">
               <li className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
-                <span>Dynamic Pricing</span>
+                <span>Direct Donations</span>
               </li>
               <li className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
-                <span>Market-Driven Value</span>
+                <span>Impact NFTs</span>
               </li>
             </ul>
           </motion.div>
