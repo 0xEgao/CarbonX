@@ -1,4 +1,4 @@
-# 🌱 CarbonX — Turning Donations into Digital Proof of Environmental Action
+# 🌱 CarbonX — Turning Donations into Environmental Action
 
 CarbonX is a Web3 donation platform that allows verified, impactful environmental organizations to raise funds through **impact-based NFTs**. These NFTs are not just art — they’re minted **only when someone donates**, tying real-world impact to blockchain transparency.
 
