@@ -8,17 +8,16 @@ CarbonX is a Web3 donation platform that allows verified, impactful environmenta
 
 ```mermaid
 graph TD
-    A[Org Registration] --> B[CarbonX Verifies Org]
-    B --> C[Org Submits Impact Project]
-    C --> D[CarbonX Calculates NFT Price Based on Impact]
-    D --> E[Project Listed on Marketplace (NFT Pre-Mint)]
-    E --> F[User Donates to Mint NFT]
-    F --> G[Donation Sent to Org & NFT Minted to Donor]
+  A[Organization Registration] --> B[Verification by CarbonX + LLMs]
+  B --> C[Impact Project Submission]
+  C --> D[NFT Pricing Based on Environmental Impact]
+  D --> E[NFT Listed on Marketplace (Pre-Mint)]
+  E --> F[User Donates → NFT Minted & Transferred → Funds Released to Org]
 ```
 
 ---
 
-## 🛠️ Platform Flow in Detail
+## 🧰 Platform Flow in Detail
 
 ### ✅ 1. Organization Registration
 
@@ -26,81 +25,88 @@ Organizations submit:
 
 * Legal documents (e.g., 80G/12A, NGO Darpan ID)
 * Description of mission and past projects
-* Verifiable certificates or media links
+* Verifiable certificates or government-issued proof
+* Social links, media coverage, photos/videos
 
-### 🔎 2. Verification
+### 🔎 2. Verification with LLM Support
 
-CarbonX team (with optional LLM assistance):
+CarbonX verifies organizations using a hybrid approach:
 
-* Checks certificate authenticity
-* Reviews media and history
-* Scores the org’s transparency & track record
+* Human review + LLM API (e.g., OpenAI/LangChain)
+* Authenticates uploaded certificates (Govt IDs, 80G/CSR approvals)
+* Reviews public reputation using LLM summarization from web links
+* Assigns a **trust score** that influences NFT pricing
 
 ### 📊 3. Impact Project Submission
 
-Each project includes:
+Once verified, orgs can submit projects with:
 
-* Activity type (tree planting, ocean cleanup, etc.)
-* Units of impact (e.g., 5,000 trees)
-* Estimated CO₂ reduction
-* Execution cost
-* Duration & location
-* Project image (for NFT)
+* Activity type (e.g., tree planting, river cleaning)
+* Units of impact (e.g., 10,000 trees, 2 tons plastic removed)
+* Estimated CO₂ offset (with proof or study link)
+* Execution cost breakdown
+* Duration & project location
+* Impact image (used as NFT image)
 
 ### 💰 4. Impact-Based NFT Valuation
 
-CarbonX uses a formula to suggest NFT price:
+CarbonX dynamically calculates the NFT price:
 
 ```
-NFT Price = (Impact Quantity × Impact Unit Price) × Transparency Modifier
+NFT Price = (Impact Units × Unit Rate) × Trust Multiplier
 ```
 
 Example:
 
 ```
-5,000 Trees × $1.20 = $6,000
-Verified by media → +20% modifier
-Final NFT Price = $7,200
+10,000 Trees × $1.00 = $10,000
+High verification score → × 1.25
+→ Final NFT Price = $12,500
 ```
+
+LLMs are used to:
+
+* Validate submitted CO₂ reduction logic
+* Provide contextual suggestions (e.g., “plastic removal in oceans valued at \$X/kg”)
 
 ### 🖼️ 5. Marketplace Listing (Pre-Mint)
 
-* NFT is displayed in the marketplace with project details.
-* It is **not minted yet** — only visible to potential donors.
+* The NFT is displayed on our marketplace with full project details.
+* **It is not minted yet** — only after a donation does minting occur.
 
 ### 🎁 6. Donation & NFT Minting
 
-* A donor selects a project and donates the suggested amount.
-* Only then is the NFT minted and sent to the donor’s wallet.
-* 100% of funds (minus gas/fees) go directly to the verified organization.
-
----
-
-## 🧠 Powered by LLM APIs
-
-CarbonX uses LLMs to:
-
-* Analyze submitted documents and impact claims
-* Score credibility and cost-efficiency
-* Refine price suggestions based on project context
+* Donor picks a project and donates suggested amount (or more).
+* NFT is minted **on demand** and transferred to the donor’s wallet.
+* Funds are routed to the organization (minus blockchain fees).
 
 ---
 
 ## 🛡️ Trust & Transparency
 
-* **Proof-Based Listings**: No NFT is listed without backend and document verification
-* **Impact Tied to Donation**: Minting = Money = Measurable Impact
-* **Public Metrics**: Donors and users can see stats like total CO₂ offset, total funds raised, and projects supported
+* **Backend Checks + LLM + Docs** = High Confidence Listings
+* **No Upfront Minting** — every NFT reflects real donation
+* **On-Chain Metrics**: Track funds, offset CO₂, project stats
 
 ---
 
-## 🔧 Tech Stack (Sample)
+## 🧠 Powered by AI (LLM APIs)
 
-* **Frontend**: React + TailwindCSS
-* **Backend**: Node.js / Express / Supabase
-* **Smart Contracts**: Solidity (or Rust if on Solana)
-* **NFT Metadata**: IPFS or Arweave
-* **LLM API**: OpenAI / LangChain for verification support
+CarbonX leverages Large Language Models (OpenAI or LangChain):
+
+* To parse and verify certificates, reports, and websites
+* To detect red flags from uploaded or linked documents
+* To assist in accurate pricing of NFTs based on environmental impact
+
+---
+
+## 🔧 Tech Stack
+
+* **Frontend**: Next.js + TypeScript + TailwindCSS + Framer Motion
+* **Backend**: Supabase (PostgreSQL, Auth, Edge Functions)
+* **Blockchain**: Solana + Anchor Framework
+* **NFT Metadata**: Arweave / IPFS
+* **AI/LLM**: OpenAI API / LangChain
 
 ---
 
@@ -111,7 +117,7 @@ Project: "Green Himalayas — Tree Plantation"
 Impact: 5,000 Trees
 Location: Himachal Pradesh, India
 Suggested Donation: $7,200
-Status: Verified ✅
+Verification: ✅ Verified by CarbonX
 Action: [Donate & Mint NFT]
 ```
 
@@ -119,18 +125,19 @@ Action: [Donate & Mint NFT]
 
 ## 🤝 Why CarbonX?
 
-* Help real organizations build a better planet
-* Get a digital badge of honor (NFT) for your contribution
-* Track verified, transparent impact
+* Help real, verified organizations make the Earth better
+* Earn a digital badge (NFT) that represents your contribution
+* Track **real-world, transparent impact** — not just speculation
 
 ---
 
 ## 📬 Contact
 
-Want to list your org or partner with us?
-Email: [contact@carbonx.green](mailto:contact@carbonx.green)
-Website: [carbonx.green](https://carbonx.green)
+Want to list your organization or partner with us?
+
+* Email: [contact@carbonx.green](mailto:contact@carbonx.green)
+* Website: [https://carbonx.green](https://carbonx.green)
 
 ---
 
-> 🌍 CarbonX — Where Blockchain Meets Climate Action.
+> 🌍 **CarbonX — Where Blockchain Meets Climate Action.**
