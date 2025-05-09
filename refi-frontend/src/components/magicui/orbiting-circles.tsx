@@ -21,8 +21,8 @@ export function OrbitingCircles({
   duration = 20,
   radius = 160,
   path = true,
-  iconSize = 50,
-  speed = 0.5,
+  iconSize = 80,
+  speed = 0.2,
   ...props
 }: OrbitingCirclesProps) {
   const calculatedDuration = duration / speed;

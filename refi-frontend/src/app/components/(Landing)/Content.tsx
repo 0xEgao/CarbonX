@@ -3,6 +3,7 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 import Link from "next/link";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
+import { motion } from "framer-motion";
 
 interface FormData {
   name: string;
@@ -128,54 +129,77 @@ const Content = () => {
         <div className="relative w-full max-w-4xl mx-auto h-[400px]">
           {/* Orbiting NFTs */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <OrbitingCircles radius={180} duration={20}>
-              <div className="w-24 h-24 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
-                <img
-                  src="https://imgs.search.brave.com/WLtZyiWYNGh6q04ekuQ_agGHHwTp9qyWgtJrAIKqMO8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tb3Rp/dmEuYXJ0L3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDI0LzA4L0Et/ZGlnaXRhbC1yZXBs/aWNhLW9mLUxlb25h/cmRvLWRhLVZpbmNp/cy1Qb3J0cmFpdC1v/Zi1hLU11c2ljaWFu/LWluLVVuaXRzLUV0/ZXJuYWxpemluZy1B/cnQtSGlzdG9yeS1l/eGhpYml0aW9uLndl/YnA"
-                  alt="Forest Conservation NFT"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="w-24 h-24 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
-                <img
-                  src="https://imgs.search.brave.com/QKzO5sfyc7s7yKIN8zEzmkCQLOMWDsjqhynNpmPsUFI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/Lzc0YTYzMWIzLTZl/Y2YtNGIyZS1iZTM4/LWMwYjRkY2IxMDhl/Ni53ZWJwL3R5cGU9/bGlzdA"
-                  alt="Ocean Cleanup NFT"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="w-24 h-24 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
-                <img
-                  src="https://imgs.search.brave.com/QMRPV2RqBkRJmJy8FvrxgvYpi3MXHKvDruYVoxk4Mc4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMub2t4LmNvbS9j/ZG4vbmZ0L2ZpbGVz/L2E5MDQzODIxLTM3/NjAtNGViOC05YjVj/LTU3NmRhYmU4ZDM2/OS53ZWJwL3R5cGU9/bGlzdA"
-                  alt="Renewable Energy NFT"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </OrbitingCircles>
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+              style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+            >
+              <OrbitingCircles radius={180} duration={20}>
+                <div className="m-4 w-24 h-24 rounded-xl mt-40 overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+                  <img
+                    src="https://imgs.search.brave.com/WLtZyiWYNGh6q04ekuQ_agGHHwTp9qyWgtJrAIKqMO8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tb3Rp/dmEuYXJ0L3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDI0LzA4L0Et/ZGlnaXRhbC1yZXBs/aWNhLW9mLUxlb25h/cmRvLWRhLVZpbmNp/cy1Qb3J0cmFpdC1v/Zi1hLU11c2ljaWFu/LWluLVVuaXRzLUV0/ZXJuYWxpemluZy1B/cnQtSGlzdG9yeS1l/eGhpYml0aW9uLndl/YnA"
+                    alt="Forest Conservation NFT"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              
+              </OrbitingCircles>
+            </motion.div>
 
             {/* Inner orbit */}
-            <OrbitingCircles radius={100} duration={15} reverse>
-              <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
-                <img
-                  src="https://imgs.search.brave.com/-SXK9ZeFGqPMaFrU6pU09jOI6sua2wuejQCQtmbdPoQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5ob3dyYXJlLmlz/L25mdF9pbWFnZXMv/bWFkbGFkcy80ZDRh/ZGVjYjRkNTNlYzlk/ZTk4MDc1OTJjYTll/ZjljNy5qcGc"
-                  alt="Wildlife Protection NFT"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
-                <img
-                  src="https://imgs.search.brave.com/6Juw8S9hHP9hhAsIyw1JkJYrQxeKrzDJXWxvwPZm-C0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jb2lu/LWltYWdlcy5jb2lu/Z2Vja28uY29tL25m/dF9jb250cmFjdHMv/aW1hZ2VzLzI0Mi9s/YXJnZS8zUjdzLVpW/MF80MDB4NDAwLmpw/Zz8xNzA3Mjg3MjM0"
-                  alt="Carbon Offset NFT"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
-                <img
-                  src="https://imgs.search.brave.com/Z4cu-AzTcfGj-jLM7C9EmQc3E4HBj-44LVOqvVTyz90/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5ob3dyYXJlLmlz/L25mdF9pbWFnZXMv/bWFkbGFkcy85MjEy/MzdkMTJkYzYxZWY0/NjAzY2I3ZmUwODEx/ZDlkNC5qcGc"
-                  alt="Sustainable Agriculture NFT"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </OrbitingCircles>
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
+              style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+            >
+              <OrbitingCircles radius={100} duration={15} reverse>
+                <div className="m-2 w-max h-20 rounded-xl  mt-40 overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+                  <img
+                    src="https://imgs.search.brave.com/5cR64VTrU5jAihnFj2_fm8wvO5fukoTQP6_BynJ9emY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5ob3dyYXJlLmlz/L25mdF9pbWFnZXMv/bWFkbGFkcy85YWFk/NDMzZmU1YWQ1YWZi/NjZkZmZjMWY2MDZm/ZDhlZC5qcGc"
+                    alt="Wildlife Protection NFT"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                
+              </OrbitingCircles>
+            </motion.div>
+
+
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+              style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+            >
+              <OrbitingCircles radius={180} duration={20}>
+                <div className="m-4 w-24 h-24 rounded-xl mt-40 overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+                  <img
+                    src="https://imgs.search.brave.com/KAjghUiSJtw63xrYglvJWGbyiBJL42S0WMtRpqYzd0I/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5ob3dyYXJlLmlz/L25mdF9pbWFnZXMv/bWFkbGFkcy80NDZm/OWE2YmVkZWU5MzQx/YmU1ZGQ0N2QyOTFl/NDkyMy5qcGc"
+                    alt="Forest Conservation NFT"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              
+              </OrbitingCircles>
+            </motion.div>
+
+
+
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
+              style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+            >
+              <OrbitingCircles radius={100} duration={15} reverse>
+                <div className="m-2 w-max h-20 rounded-xl  mt-72 overflow-hidden shadow-lg shadow-purple-500/30 transform hover:scale-110 transition">
+                  <img
+                    src="https://imgs.search.brave.com/vQfqoxDM142Ge05tadKAk33jsCXnZm4w2i7FEMBJwaM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5ob3dyYXJlLmlz/L25mdF9pbWFnZXMv/bWFkbGFkcy8xOTY5/NGJkYmE3ZDFmMTY2/MWM0MGNhNWNhZmYx/ZjczNy5qcGc"
+                    alt="Wildlife Protection NFT"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                
+              </OrbitingCircles>
+            </motion.div>
           </div>
 
           {/* Feature Cards */}
