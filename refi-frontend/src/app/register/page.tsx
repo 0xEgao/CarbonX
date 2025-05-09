@@ -1,10 +1,14 @@
-// pages/register.tsx
 "use client";
 
 import { useState, ChangeEvent, FormEvent } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 import { NextPage } from 'next';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://kdfpylohbcwcybjszfyt.supabase.co';
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 type OrganisationType = 'Solar' | 'Wind' | 'Water' | 'Reforestation' | '';
 
@@ -15,6 +19,7 @@ interface FormData {
   wallet_pubkey: string;
   value_of_nft: string;
   image: File | null;
+  image_url: string;
 }
 
 const Register: NextPage = () => {
@@ -24,11 +29,16 @@ const Register: NextPage = () => {
     carbon_offset: '',
     wallet_pubkey: '',
     value_of_nft: '',
-    image: null
+    image: null,
+    image_url: ''
   });
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [formStep, setFormStep] = useState<number>(1);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     const { name, value } = e.target;
@@ -42,6 +52,19 @@ const Register: NextPage = () => {
     const files = e.target.files;
     if (files && files[0]) {
       const file = files[0];
+      
+      // Check file type
+      if (!file.type.startsWith('image/')) {
+        setError('Please upload an image file (SVG, PNG, JPG, or GIF)');
+        return;
+      }
+      
+      // Check file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('Image size should be less than 5MB');
+        return;
+      }
+      
       setFormData({
         ...formData,
         image: file
@@ -52,6 +75,8 @@ const Register: NextPage = () => {
         setImagePreview(reader.result as string);
       };
       reader.readAsDataURL(file);
+      
+      setError(null);
     }
   };
 
@@ -63,11 +88,138 @@ const Register: NextPage = () => {
     setFormStep(formStep - 1);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const uploadImageToSupabase = async (): Promise<string | null> => {
+    if (!formData.image) {
+      setError('No image selected');
+      return null;
+    }
+    
+    try {
+      setUploadProgress(0);
+      
+      // Create unique file name
+      const fileExt = formData.image.name.split('.').pop();
+      const fileName = `${formData.wallet_pubkey}_${Date.now()}.${fileExt}`;
+      const filePath = `projects/${fileName}`;
+      
+      // Upload file
+      const { error: uploadError } = await supabase.storage
+        .from('nftimages')
+        .upload(filePath, formData.image, {
+          cacheControl: '3600',
+          upsert: false,
+        });
+
+      if (uploadError) {
+        if (uploadError.message.includes('row-level security')) {
+          throw new Error('Image upload failed: Storage permissions denied. Please contact support.');
+        }
+        throw uploadError;
+      }
+      
+      // Get public URL
+      const { data } = supabase.storage
+        .from('nftimages')
+        .getPublicUrl(filePath);
+      
+      if (!data?.publicUrl) {
+        throw new Error('Failed to get public URL');
+      }
+      
+      setUploadProgress(100);
+      return data.publicUrl;
+      
+    } catch (error: any) {
+      console.error('Error uploading image:', error.message);
+      setError(`Error uploading image: ${error.message}`);
+      return null;
+    }
+  };
+
+  const saveFormDataToSupabase = async (imageUrl: string): Promise<boolean> => {
+    try {
+      const carbonOffset = parseFloat(formData.carbon_offset);
+      const nftValue = parseFloat(formData.value_of_nft);
+      
+      if (isNaN(carbonOffset) || isNaN(nftValue)) {
+        throw new Error('Invalid number format for carbon offset or NFT value');
+      }
+
+      const { error } = await supabase
+        .from('nft')
+        .insert([
+          {
+            country: formData.country,
+            organisation_type: formData.organisation_type,
+            carbon_offset: carbonOffset,
+            wallet_pubkey: formData.wallet_pubkey,
+            value_of_nft: nftValue,
+            image_url: imageUrl,
+            created_at: new Date().toISOString()
+          }
+        ]);
+
+      if (error) {
+        if (error.message.includes('row-level security')) {
+          throw new Error('Data save failed: Database permissions denied. Please contact support.');
+        }
+        throw error;
+      }
+      
+      return true;
+      
+    } catch (error: any) {
+      console.error('Error saving data:', error.message);
+      setError(`Error saving data: ${error.message}`);
+      return false;
+    }
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted:', formData);
-    //Data submission logic can be added here
+    setIsSubmitting(true);
+    setError(null);
+    setSuccessMessage(null);
+    
+    try {
+      // Validate required fields
+      if (!formData.country || !formData.organisation_type || !formData.carbon_offset ||
+          !formData.wallet_pubkey || !formData.value_of_nft || !formData.image) {
+        throw new Error('All fields are required');
+      }
+
+      // Upload image
+      const imageUrl = await uploadImageToSupabase();
+      
+      if (!imageUrl) {
+        throw new Error('Failed to upload image');
+      }
+      
+      // Save form data
+      const success = await saveFormDataToSupabase(imageUrl);
+      
+      if (success) {
+        setSuccessMessage('NFT registered successfully!');
+        // Reset form
+        setFormData({
+          country: '',
+          organisation_type: '',
+          carbon_offset: '',
+          wallet_pubkey: '',
+          value_of_nft: '',
+          image: null,
+          image_url: ''
+        });
+        setImagePreview(null);
+        setFormStep(1);
+      }
+      
+    } catch (error: any) {
+      console.error('Form submission error:', error.message);
+      setError(`Form submission failed: ${error.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const renderFormStep = (): React.ReactElement | null => {
@@ -160,7 +312,8 @@ const Register: NextPage = () => {
             </div>
 
             <div className="relative">
-              <label htmlFor="value_of_nft" className="text-sm font-medium text-gray-300 block mb-2">
+              <label htmlFor="value_of_nft" className="text-sm font-medium text-gray-3
+              00 block mb-2">
                 Value of NFT
               </label>
               <div className="relative">
@@ -270,6 +423,12 @@ const Register: NextPage = () => {
                   />
                 </label>
               </div>
+              {error && (
+                <p className="mt-2 text-sm text-red-500">{error}</p>
+              )}
+              {successMessage && (
+                <p className="mt-2 text-sm text-green-500">{successMessage}</p>
+              )}
             </div>
 
             <div className="flex justify-between">
@@ -277,6 +436,7 @@ const Register: NextPage = () => {
                 type="button" 
                 onClick={prevStep}
                 className="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg shadow-lg transition-all duration-200 flex items-center space-x-2"
+                disabled={isSubmitting}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
@@ -285,12 +445,25 @@ const Register: NextPage = () => {
               </button>
               <button 
                 type="submit" 
-                className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-medium rounded-lg shadow-lg hover:shadow-green-500/30 transition-all duration-200 flex items-center space-x-2"
+                className={`px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-medium rounded-lg shadow-lg hover:shadow-green-500/30 transition-all duration-200 flex items-center space-x-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                disabled={isSubmitting}
               >
-                <span>Register NFT</span>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                </svg>
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Uploading {uploadProgress > 0 ? `(${uploadProgress}%)` : ''}</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Register NFT</span>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </>
+                )}
               </button>
             </div>
           </div>
@@ -302,14 +475,12 @@ const Register: NextPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-black text-white">
-     
-
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="lg:col-span-2">
-            <div className=" rounded-2xl shadow-xl overflow-hidden">
+            <div className="rounded-2xl shadow-xl overflow-hidden">
               <div className="p-1 py-20">
-                <div className=" p-6 sm:p-8">
+                <div className="p-6 sm:p-8">
                   <h2 className="text-2xl font-bold mb-6">Register Your NFT</h2>
                   
                   {/* Progress bar */}
@@ -363,7 +534,6 @@ const Register: NextPage = () => {
           </div>
           
           <div className="space-y-6">
-            
             <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-xl overflow-hidden">
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-4">Need Help?</h3>
