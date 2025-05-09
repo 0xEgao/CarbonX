@@ -48,21 +48,21 @@ export default function Marketplace() {
     <div className="min-h-screen bg-black/95 text-white">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <h1 className="text-4xl font-bold">CarbonX Marketplace</h1>
           <p className="mt-2 text-gray-400">Discover and support environmental initiatives through NFTs</p>
-        </div>
+        </div> */}
 
         {/* Search and Filters Bar */}
         <div className="mb-8 flex flex-wrap items-center gap-4">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 " />
             <input
               type="text"
               placeholder="Search NFTs or collections..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-lg bg-black/40 px-10 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg bg-black/40 px-10 py-4 text-white placeholder-gray-400 focus:outline-none border-2 border-gray-900"
             />
           </div>
           
