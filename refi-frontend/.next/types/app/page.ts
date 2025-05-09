@@ -1,4 +1,4 @@
-// File: /home/kartik/Work/Solana/Hack/Breakout-Refi-project/refi-frontend/src/app/page.tsx
+// File: /home/kartik/Work/Solana/Hack/CarbonX/refi-frontend/src/app/page.tsx
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
