@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { IncomingForm } from 'formidable';
 import path from 'path';
 import fs from 'fs';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const config = {
   api: {
@@ -41,5 +46,26 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('Upload error:', error);
     return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
+  }
+}
+
+async function uploadFile(file: any) {
+  const filePath = `nftimages/${Date.now()}_${file.name}`;
+  const { data, error } = await supabase
+    .storage
+    .from('nftimages') // your bucket name
+    .upload(filePath, file);
+
+  if (error) {
+    // Handle error
+    console.error(error);
+    return null;
+  } else {
+    // Get public URL
+    const { data: urlData } = supabase
+      .storage
+      .from('nftimages')
+      .getPublicUrl(filePath);
+    return urlData.publicUrl;
   }
 }

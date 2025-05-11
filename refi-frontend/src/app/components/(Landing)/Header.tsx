@@ -42,7 +42,7 @@ const Header = () => {
                 className="text-xl font-sans cursor-pointer"
                 onMouseEnter={() => handleAlert('Register Org')}
               >
-                Register and Mint
+                Enroll Orgs
               </h1>
             </Link>
             <Link href="/marketplace">
