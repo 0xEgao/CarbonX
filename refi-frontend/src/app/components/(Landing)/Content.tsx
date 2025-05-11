@@ -86,12 +86,7 @@ const Content = () => {
             Donate to verified environmental organizations and receive impact NFTs as proof of your contribution.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <button 
-              onClick={() => setShowModal(true)} 
-              className="bg-white text-black font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
-            >
-              Join the Waitlist
-            </button>
+           
             <Link href="#About">
               <button className="border cursor-pointer border-gray-700 text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-900 transition">
                   What Differentiates Us
