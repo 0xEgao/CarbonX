@@ -10,6 +10,7 @@ import { NextPage } from 'next';
 type OrganisationType = 'Solar' | 'Wind' | 'Water' | 'Reforestation' | '';
 
 interface FormData {
+  name: string;
   country: string;
   organisation_type: OrganisationType;
   carbon_offset: string;
@@ -55,6 +56,7 @@ interface FormData {
 
 const Register: NextPage = () => {
   const [formData, setFormData] = useState<FormData>({
+    name: '',
     country: '',
     organisation_type: '',
     carbon_offset: '',
@@ -179,8 +181,69 @@ const Register: NextPage = () => {
     }
   };
 
-  const nextStep = (): void => {
-    setFormStep(formStep + 1);
+  const nextStep = async (): Promise<void> => {
+    if (formStep === 3) {
+      try {
+        setIsSubmitting(true);
+        setError(null);
+
+        // Validate required fields before API call
+        if (!formData.total_co2_offset || !formData.offset_activity_type || !formData.project_id) {
+          throw new Error('Please fill in all required carbon offset details');
+        }
+
+        // Validate numeric fields
+        const totalOffset = parseFloat(formData.total_co2_offset);
+        if (isNaN(totalOffset) || totalOffset <= 0) {
+          throw new Error('Total CO2 offset must be a positive number');
+        }
+
+        // Send data to verification API
+        const verificationResponse = await fetch('http://localhost:3000/api/verify', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            // Organization Details
+            country: formData.country,
+            organisation_type: formData.organisation_type,
+            description: formData.description,
+            ngo_darpan_id: formData.ngo_darpan_id,
+            
+            // Carbon Offset Details
+            total_co2_offset: formData.total_co2_offset,
+            offset_activity_type: formData.offset_activity_type,
+            project_id: formData.project_id,
+            gps_coordinates: formData.gps_coordinates,
+            carbon_registry_link: formData.carbon_registry_link,
+            cost_per_ton: formData.cost_per_ton,
+          }),
+        });
+
+        const data = await verificationResponse.json();
+
+        if (!verificationResponse.ok) {
+          throw new Error(data.message || 'Verification failed');
+        }
+
+        if (!data || !data.verification_status) {
+          throw new Error('Invalid response from verification service');
+        }
+
+        // Set verification data and move to next step
+        setVerificationData(data);
+        setFormStep(4);
+      } catch (error: any) {
+        console.error('Verification error:', error);
+        setError(error.message || 'Failed to verify carbon offset details. Please try again.');
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      setFormStep(formStep + 1);
+    }
   };
 
   const prevStep = (): void => {
@@ -347,18 +410,23 @@ const Register: NextPage = () => {
       case 1:
         return (
           <div className="space-y-6">
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-red-400 text-sm">
+                {error}
+              </div>
+            )}
             <div className="relative">
-              <label htmlFor="country" className="text-sm font-medium text-gray-300 block mb-2">
+              <label htmlFor="name" className="text-sm font-medium text-gray-300 block mb-2">
                 Name of Organisation
               </label>
               <input
                 type="text"
                 id="name"
-                name="country"
-                // value={formData.country}
-                // onChange={handleChange}
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white placeholder-gray-400"
+                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none text-white placeholder-gray-400"
                 placeholder="Enter name of organisation"
               />
             </div>
@@ -374,63 +442,60 @@ const Register: NextPage = () => {
                 value={formData.country}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white placeholder-gray-400"
+                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none text-white placeholder-gray-400"
                 placeholder="Enter country"
               />
             </div>
 
-
             <div className="relative">
-              <label htmlFor="country" className="text-sm font-medium text-gray-300 block mb-2">
+              <label htmlFor="description" className="text-sm font-medium text-gray-300 block mb-2">
                 Description
               </label>
               <textarea
                 id="description"
                 name="description"
+                value={formData.description}
+                onChange={handleChange}
                 required
-                className="w-full px-4 py-5 bg-gray-800/50 border border-gray-700 rounded-lg  text-white placeholder-gray-400 focus:outline-none"
+                className="w-full px-4 py-5 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none text-white placeholder-gray-400"
                 placeholder="Enter about the organisation"
               />
             </div>
 
             <div className="relative">
-              <label htmlFor="country" className="text-sm font-medium text-gray-300 block mb-2">
-                  NGO darpan id
+              <label htmlFor="ngo_darpan_id" className="text-sm font-medium text-gray-300 block mb-2">
+                NGO darpan id
               </label>
               <input
                 type="text"
                 id="ngo_darpan_id"
                 name="ngo_darpan_id"
-                value={formData.country}
+                value={formData.ngo_darpan_id}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white placeholder-gray-400"
+                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none text-white placeholder-gray-400"
                 placeholder="Enter NGO darpan id"
               />
             </div>
 
             <div className="relative">
-              <div className="relative">
-              <label htmlFor="country" className="text-sm font-medium text-gray-300 block mb-2">
+              <label htmlFor="organisation_type" className="text-sm font-medium text-gray-300 block mb-2">
                 Organisation Type
               </label>
-              <input
-                type="text"
-                id="country"
-                name="country"
-                value={formData.country}
+              <select
+                id="organisation_type"
+                name="organisation_type"
+                value={formData.organisation_type}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white placeholder-gray-400"
-                placeholder="Enter organisation type (Solar, Wind, Water, Reforestation)"
-              />
-            </div>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
-                
-              </div>
+                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none text-white"
+              >
+                <option value="">Select organisation type</option>
+                <option value="Solar">Solar</option>
+                <option value="Wind">Wind</option>
+                <option value="Water">Water</option>
+                <option value="Reforestation">Reforestation</option>
+              </select>
             </div>
 
             <div className="flex justify-end">
@@ -450,6 +515,11 @@ const Register: NextPage = () => {
       case 2:
         return (
           <div className="space-y-6">
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-red-400 text-sm">
+                {error}
+              </div>
+            )}
             <div className="relative">
               <label htmlFor="website_url" className="text-sm font-medium text-gray-300 block mb-2">
                 Official Website URL <span className="text-red-500">*</span>
@@ -583,6 +653,11 @@ const Register: NextPage = () => {
       case 3:
         return (
           <div className="space-y-8">
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-red-400 text-sm">
+                {error}
+              </div>
+            )}
             {/* Quantitative Data Section */}
             <div className="space-y-6">
               <h3 className="text-lg font-semibold text-gray-200">📊 Quantitative Data</h3>
@@ -825,12 +900,25 @@ const Register: NextPage = () => {
               <button 
                 type="button" 
                 onClick={nextStep}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-medium rounded-lg shadow-lg hover:shadow-blue-500/30 transition-all duration-200 flex items-center space-x-2"
+                disabled={isSubmitting}
+                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-medium rounded-lg shadow-lg hover:shadow-blue-500/30 transition-all duration-200 flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span>Next Step</span>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                </svg>
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Verifying...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Next Step</span>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </>
+                )}
               </button>
             </div>
           </div>
@@ -838,6 +926,11 @@ const Register: NextPage = () => {
       case 4:
         return (
           <div className="space-y-8">
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-red-400 text-sm">
+                {error}
+              </div>
+            )}
             {/* NFT Summary Section */}
             <div className="bg-gray-800/50 rounded-lg p-6 space-y-4">
               <h3 className="text-lg font-semibold text-gray-200">📊 NFT Summary</h3>
