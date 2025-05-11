@@ -24,6 +24,9 @@ interface FormData {
   linkedin_url: string;
   media_mentions: string;
   location_address: string;
+  // Organization Details
+  description: string;
+  ngo_darpan_id: string;
   // Carbon Offset Details
   total_co2_offset: string;
   offset_activity_type: string;
@@ -66,6 +69,9 @@ const Register: NextPage = () => {
     linkedin_url: '',
     media_mentions: '',
     location_address: '',
+    // Organization Details
+    description: '',
+    ngo_darpan_id: '',
     // Carbon Offset Details
     total_co2_offset: '',
     offset_activity_type: '',
@@ -98,6 +104,7 @@ const Register: NextPage = () => {
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [verificationData, setVerificationData] = useState<any>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
@@ -296,63 +303,37 @@ const Register: NextPage = () => {
         throw new Error('All fields are required');
       }
 
-      // Upload image
-      const imageUrl = await uploadImageToSupabase();
-      
-      if (!imageUrl) {
-        throw new Error('Failed to upload image');
-      }
-      
-      // Save form data
-      const success = await saveFormDataToSupabase(imageUrl);
-      
-      if (success) {
-        setSuccessMessage('NFT registered successfully!');
-        // Reset form
-        setFormData({
-          country: '',
-          organisation_type: '',
-          carbon_offset: '',
-          wallet_pubkey: '',
-          value_of_nft: '',
-          image: null,
-          image_url: '',
-          website_url: '',
-          twitter_url: '',
-          facebook_url: '',
-          instagram_url: '',
-          linkedin_url: '',
-          media_mentions: '',
-          location_address: '',
+      // Send data to verification API
+      const verificationResponse = await fetch('http://localhost:3000/api/verify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          // Organization Details
+          country: formData.country,
+          organisation_type: formData.organisation_type,
+          description: formData.description,
+          ngo_darpan_id: formData.ngo_darpan_id,
+          
           // Carbon Offset Details
-          total_co2_offset: '',
-          offset_activity_type: '',
-          verification_certificate: null,
-          project_id: '',
-          before_images: null,
-          after_images: null,
-          gps_coordinates: '',
-          carbon_registry_link: '',
-          cost_per_ton: '',
-          // NFT Details
-          nft_name: '',
-          nft_description: '',
-          nft_attributes: {
-            rarity: '',
-            impact_score: '',
-            verification_status: ''
-          },
-          nft_collection: '',
-          nft_image: null,
-          nft_image_url: '',
-          nft_price: '',
-          impact_percentage: '',
-          carbon_offset_value: ''
-        });
-        setImagePreview(null);
-        setFormStep(1);
+          total_co2_offset: formData.total_co2_offset,
+          offset_activity_type: formData.offset_activity_type,
+          project_id: formData.project_id,
+          gps_coordinates: formData.gps_coordinates,
+          carbon_registry_link: formData.carbon_registry_link,
+          cost_per_ton: formData.cost_per_ton,
+        }),
+      });
+
+      if (!verificationResponse.ok) {
+        throw new Error('Verification failed');
       }
-      
+
+      const data = await verificationResponse.json();
+      setVerificationData(data);
+      nextStep(); // Move to the NFT summary page
+
     } catch (error: any) {
       console.error('Form submission error:', error.message);
       setError(`Form submission failed: ${error.message}`);
@@ -864,27 +845,39 @@ const Register: NextPage = () => {
               <div className="grid grid-cols-3 gap-4">
                 <div className="bg-gray-700/50 rounded-lg p-4">
                   <p className="text-sm text-gray-400">Total Carbon Offset</p>
-                  <p className="text-xl font-semibold text-white">{formData.total_co2_offset || '0'} tons</p>
+                  <p className="text-xl font-semibold text-white">{verificationData?.total_co2_offset || '0'} tons</p>
                 </div>
                 <div className="bg-gray-700/50 rounded-lg p-4">
                   <p className="text-sm text-gray-400">Impact Percentage</p>
-                  <p className="text-xl font-semibold text-green-400">{calculateImpactPercentage()}%</p>
+                  <p className="text-xl font-semibold text-green-400">{verificationData?.impact_percentage || '0'}%</p>
                 </div>
                 <div className="bg-gray-700/50 rounded-lg p-4">
                   <p className="text-sm text-gray-400">Carbon Offset Value</p>
-                  <p className="text-xl font-semibold text-white">${calculateCarbonOffsetValue()}</p>
+                  <p className="text-xl font-semibold text-white">${verificationData?.carbon_offset_value || '0'}</p>
                 </div>
               </div>
 
               <div className="bg-gray-700/50 rounded-lg p-4">
                 <p className="text-sm text-gray-400">Suggested NFT Price Range</p>
                 <div className="flex items-center space-x-2 mt-1">
-                  <p className="text-lg font-semibold text-white">${calculateCarbonOffsetValue()}</p>
+                  <p className="text-lg font-semibold text-white">${verificationData?.min_price || '0'}</p>
                   <span className="text-gray-400">-</span>
-                  <p className="text-lg font-semibold text-white">${(parseFloat(calculateCarbonOffsetValue()) * 1.5).toFixed(2)}</p>
+                  <p className="text-lg font-semibold text-white">${verificationData?.max_price || '0'}</p>
                 </div>
                 <p className="text-sm text-gray-400 mt-1">Based on carbon offset value and market factors</p>
               </div>
+
+              {verificationData?.verification_status && (
+                <div className="bg-gray-700/50 rounded-lg p-4">
+                  <p className="text-sm text-gray-400">Verification Status</p>
+                  <p className={`text-lg font-semibold ${verificationData.verification_status === 'verified' ? 'text-green-400' : 'text-yellow-400'}`}>
+                    {verificationData.verification_status}
+                  </p>
+                  {verificationData.verification_notes && (
+                    <p className="text-sm text-gray-400 mt-1">{verificationData.verification_notes}</p>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* NFT Details Form */}
@@ -1030,6 +1023,10 @@ const Register: NextPage = () => {
   return (
     <div className="min-h-screen flex flex-col bg-black text-white">
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-2xl font-bold text-white">Register Your Project</h1>
+         
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="lg:col-span-2">
             <div className="rounded-2xl shadow-xl overflow-hidden">

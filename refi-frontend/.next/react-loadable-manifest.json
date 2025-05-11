@@ -1,17 +1,15 @@
 {
   "app/components/(Landing)/Header.tsx -> ./TopAlert": {
-    "id": 3236,
+    "id": "app/components/(Landing)/Header.tsx -> ./TopAlert",
     "files": [
-      "static/chunks/236.257e34337d5abdff.js"
+      "static/chunks/_app-pages-browser_src_app_components_Landing_TopAlert_tsx.js"
     ]
   },
   "app/components/(Landing)/Header.tsx -> ./WalletConnect": {
-    "id": 9084,
+    "id": "app/components/(Landing)/Header.tsx -> ./WalletConnect",
     "files": [
-      "static/css/b9b8e622f4c4d397.css",
-      "static/chunks/3a91511d.2fff3abfa2249c83.js",
-      "static/chunks/247.66a3b35709c0beb3.js",
-      "static/chunks/927.5bca0815b7cd8229.js"
+      "static/css/_app-pages-browser_src_app_components_Landing_WalletConnect_tsx.css",
+      "static/chunks/_app-pages-browser_src_app_components_Landing_WalletConnect_tsx.js"
     ]
   }
 }
