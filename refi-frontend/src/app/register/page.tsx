@@ -353,53 +353,56 @@ const Register: NextPage = () => {
     return (totalOffset * costPerTon).toFixed(2);
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
     setSuccessMessage(null);
     
     try {
-      // Validate required fields
-      if (!formData.country || !formData.organisation_type || !formData.carbon_offset ||
-          !formData.wallet_pubkey || !formData.value_of_nft || !formData.image) {
-        throw new Error('All fields are required');
-      }
-
-      // Send data to verification API
-      const verificationResponse = await fetch('http://localhost:3000/api/verify', {
+      // First, verify the carbon offset data
+      const verificationResponse = await fetch('/api/verify', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          // Organization Details
-          country: formData.country,
-          organisation_type: formData.organisation_type,
-          description: formData.description,
-          ngo_darpan_id: formData.ngo_darpan_id,
-          
-          // Carbon Offset Details
           total_co2_offset: formData.total_co2_offset,
           offset_activity_type: formData.offset_activity_type,
           project_id: formData.project_id,
-          gps_coordinates: formData.gps_coordinates,
-          carbon_registry_link: formData.carbon_registry_link,
           cost_per_ton: formData.cost_per_ton,
+          organisation_type: formData.organisation_type,
+          description: formData.description,
+          country: formData.country,
+          ngo_darpan_id: formData.ngo_darpan_id,
+          gps_coordinates: formData.gps_coordinates,
+          carbon_registry_link: formData.carbon_registry_link
         }),
       });
 
+      const data = await verificationResponse.json();
+
       if (!verificationResponse.ok) {
-        throw new Error('Verification failed');
+        throw new Error(data.message || 'Verification failed');
       }
 
-      const data = await verificationResponse.json();
-      setVerificationData(data);
-      nextStep(); // Move to the NFT summary page
+      if (!data || !data.verification_status) {
+        throw new Error('Invalid verification response');
+      }
 
-    } catch (error: any) {
-      console.error('Form submission error:', error.message);
-      setError(`Form submission failed: ${error.message}`);
+      // Set the NFT price to the suggested price from verification
+      setFormData(prev => ({
+        ...prev,
+        nft_price: data.min_price.toString()
+      }));
+
+      // Store verification data for summary
+      setVerificationData(data);
+
+      // Move to next step
+      nextStep();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setIsSubmitting(false);
     }
@@ -1035,12 +1038,9 @@ const Register: NextPage = () => {
                     type="number"
                     id="nft_price"
                     name="nft_price"
-                    value={formData.nft_price}
-                    onChange={handleChange}
-                    required
-                    min={calculateCarbonOffsetValue()}
-                    step="0.01"
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none text-white pr-16"
+                    value={verificationData?.min_price || '0'}
+                    readOnly
+                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none text-white pr-16 cursor-not-allowed"
                     placeholder="0.00"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-400 border-l border-gray-700">
@@ -1048,7 +1048,7 @@ const Register: NextPage = () => {
                   </div>
                 </div>
                 <p className="mt-1 text-sm text-gray-400">
-                  Minimum price: ${calculateCarbonOffsetValue()} (based on carbon offset value)
+                  Price is set based on verification results
                 </p>
               </div>
 
