@@ -3,7 +3,13 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
 import { NextPage } from 'next';
+import { useRouter } from 'next/navigation';
 
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = 'https://awrinqgwilgonncszdzf.supabase.co'
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY as string
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 // Initialize Supabase clien
 
@@ -107,6 +113,8 @@ const Register: NextPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [verificationData, setVerificationData] = useState<any>(null);
+
+  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
@@ -406,6 +414,87 @@ const Register: NextPage = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // Handler to register NFT in Supabase
+  const handleRegisterNFT = async () => {
+    setError(null);
+    setSuccessMessage(null);
+
+    // 1. Upload image via API route and get URL
+    let imageUrl = '';
+    if (formData.nft_image) {
+      imageUrl = await uploadImageViaApiRoute(formData.nft_image);
+      if (!imageUrl) {
+        setError('Failed to upload image');
+        return;
+      }
+    }
+
+    // 2. Insert NFT with image URL
+    const { data, error } = await supabase
+      .from('nfts')
+      .insert([
+        {
+          wallet_address: formData.wallet_pubkey,
+          name: formData.nft_name,
+          price: Number(verificationData?.min_price || 0),
+          image_uri: imageUrl,
+        }
+      ])
+      .select();
+
+    if (error) {
+      setError(error.message);
+    } else {
+      setSuccessMessage('NFT registered successfully!');
+      setTimeout(() => {
+        router.push('/marketplace');
+      }, 1200);
+    }
+  };
+
+  const uploadNFTImageToSupabase = async () => {
+    if (!formData.nft_image) return '';
+    const file = formData.nft_image;
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${formData.wallet_pubkey}_${Date.now()}.${fileExt}`;
+    const filePath = `nftimages/${fileName}`;
+
+    // Upload file
+    const { error: uploadError } = await supabase.storage
+      .from('nftimages')
+      .upload(filePath, file);
+
+    if (uploadError) {
+      setError('Image upload failed: ' + uploadError.message);
+      return '';
+    }
+
+    // Get public URL
+    const { data } = supabase.storage
+      .from('nftimages')
+      .getPublicUrl(filePath);
+
+    return data?.publicUrl || '';
+  };
+
+  const uploadImageViaApiRoute = async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    const res = await fetch('/api/fileUpload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!res.ok) {
+      setError('Image upload failed');
+      return '';
+    }
+
+    const data = await res.json();
+    return data.url; // This is the URL returned by your API route
   };
 
   const renderFormStep = (): React.ReactElement | null => {
@@ -934,6 +1023,11 @@ const Register: NextPage = () => {
                 {error}
               </div>
             )}
+            {successMessage && (
+              <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 text-green-400 text-sm">
+                {successMessage}
+              </div>
+            )}
             {/* NFT Summary Section */}
             <div className="bg-gray-800/50 rounded-lg p-6 space-y-4">
               <h3 className="text-lg font-semibold text-gray-200">📊 NFT Summary</h3>
@@ -1096,7 +1190,8 @@ const Register: NextPage = () => {
                 <span>Previous</span>
               </button>
               <button 
-                type="submit" 
+                type="button" 
+                onClick={handleRegisterNFT}
                 className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-medium rounded-lg shadow-lg hover:shadow-green-500/30 transition-all duration-200 flex items-center space-x-2"
               >
                 <span>Register NFT</span>
