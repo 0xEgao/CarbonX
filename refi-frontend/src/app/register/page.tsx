@@ -3,12 +3,9 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
 import { NextPage } from 'next';
-import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://kdfpylohbcwcybjszfyt.supabase.co';
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Initialize Supabase clien
 
 type OrganisationType = 'Solar' | 'Wind' | 'Water' | 'Reforestation' | '';
 
@@ -183,13 +180,13 @@ const Register: NextPage = () => {
     setFormStep(formStep - 1);
   };
 
-  const uploadImageToSupabase = async (): Promise<string | null> => {
+  const uploadImageToSupabase = async ()=> {
     if (!formData.image) {
       setError('No image selected');
       return null;
     }
     
-    try {
+    // try {
       setUploadProgress(0);
       
       // Create unique file name
@@ -198,37 +195,37 @@ const Register: NextPage = () => {
       const filePath = `projects/${fileName}`;
       
       // Upload file
-      const { error: uploadError } = await supabase.storage
-        .from('nftimages')
-        .upload(filePath, formData.image, {
-          cacheControl: '3600',
-          upsert: false,
-        });
+      // const { error: uploadError } = await supabase.storage
+      //   .from('nftimages')
+      //   .upload(filePath, formData.image, {
+      //     cacheControl: '3600',
+      //     upsert: false,
+      //   });
 
-      if (uploadError) {
-        if (uploadError.message.includes('row-level security')) {
-          throw new Error('Image upload failed: Storage permissions denied. Please contact support.');
-        }
-        throw uploadError;
-      }
+      // if (uploadError) {
+      //   if (uploadError.message.includes('row-level security')) {
+      //     throw new Error('Image upload failed: Storage permissions denied. Please contact support.');
+      //   }
+      //   throw uploadError;
+      // }
       
       // Get public URL
-      const { data } = supabase.storage
-        .from('nftimages')
-        .getPublicUrl(filePath);
+      // const { data } = supabase.storage
+      //   .from('nftimages')
+      //   .getPublicUrl(filePath);
       
-      if (!data?.publicUrl) {
-        throw new Error('Failed to get public URL');
-      }
+    //   if (!data?.publicUrl) {
+    //     throw new Error('Failed to get public URL');
+    //   }
       
-      setUploadProgress(100);
-      return data.publicUrl;
+    //   setUploadProgress(100);
+    //   return data.publicUrl;
       
-    } catch (error: any) {
-      console.error('Error uploading image:', error.message);
-      setError(`Error uploading image: ${error.message}`);
-      return null;
-    }
+    // } catch (error: any) {
+    //   console.error('Error uploading image:', error.message);
+    //   setError(`Error uploading image: ${error.message}`);
+    //   return null;
+    // }
   };
 
   const saveFormDataToSupabase = async (imageUrl: string): Promise<boolean> => {
@@ -240,26 +237,26 @@ const Register: NextPage = () => {
         throw new Error('Invalid number format for carbon offset or NFT value');
       }
 
-      const { error } = await supabase
-        .from('nft')
-        .insert([
-          {
-            country: formData.country,
-            organisation_type: formData.organisation_type,
-            carbon_offset: carbonOffset,
-            wallet_pubkey: formData.wallet_pubkey,
-            value_of_nft: nftValue,
-            image_url: imageUrl,
-            created_at: new Date().toISOString()
-          }
-        ]);
+      // const { error } = await supabase
+      //   .from('nft')
+      //   .insert([
+      //     {
+      //       country: formData.country,
+      //       organisation_type: formData.organisation_type,
+      //       carbon_offset: carbonOffset,
+      //       wallet_pubkey: formData.wallet_pubkey,
+      //       value_of_nft: nftValue,
+      //       image_url: imageUrl,
+      //       created_at: new Date().toISOString()
+      //     }
+      //   ]);
 
-      if (error) {
-        if (error.message.includes('row-level security')) {
-          throw new Error('Data save failed: Database permissions denied. Please contact support.');
-        }
-        throw error;
-      }
+      // if (error) {
+      //   if (error.message.includes('row-level security')) {
+      //     throw new Error('Data save failed: Database permissions denied. Please contact support.');
+      //   }
+      //   throw error;
+      // }
       
       return true;
       

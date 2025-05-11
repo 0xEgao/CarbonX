@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[236],{3236:(e,t,l)=>{l.r(t),l.d(t,{default:()=>a});var s=l(5155);let a=e=>{let{message:t}=e;return(0,s.jsx)("div",{className:"fixed top-0 left-0 w-full bg-black text-white text-center py-2 z-50",children:t})}}}]);
