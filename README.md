@@ -4,6 +4,9 @@ CarbonX is a Web3 donation platform that allows verified, impactful environmenta
 
 
 
+*DEMO:[https://www.loom.com/share/e403483408204d4b99d5e6139174b254?sid=ce6c86e9-1cd3-406f-8bb3-4557601cdde9][https://www.loom.com/share/e403483408204d4b99d5e6139174b254?sid=ce6c86e9-1cd3-406f-8bb3-4557601cdde9]
+
+
 ## 🧰 Platform Flow in Detail
 
 ### ✅ 1. Organization Registration

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 
 interface NFT {
@@ -20,9 +20,51 @@ interface NFTCardProps {
 
 const NFTCard: FC<NFTCardProps> = ({ nft }) => {
   const priceChange = nft.previousPrice ? ((nft.price - nft.previousPrice) / nft.previousPrice) * 100 : 0;
-  
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('Creating metadata');
+
+  const handleBuyClick = () => {
+    setShowAlert(true);
+    setAlertMessage('Creating metadata');
+  };
+
+  useEffect(() => {
+    if (showAlert) {
+      const messages = [
+        'Creating metadata',
+        'Minting NFT',
+        'Successfully minted NFT'
+      ];
+      let currentIndex = 0;
+
+      const interval = setInterval(() => {
+        currentIndex++;
+        if (currentIndex < messages.length) {
+          setAlertMessage(messages[currentIndex]);
+        } else {
+          clearInterval(interval);
+          setTimeout(() => {
+            setShowAlert(false);
+          }, 1000); // Keep last message for 1 second
+        }
+      }, 1500); // Change message every 1.5 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [showAlert]);
+
   return (
     <div className="group relative overflow-hidden rounded-xl bg-black/40 p-4 transition-all hover:bg-black/60 border border-gray-800">
+      {/* Alert Message */}
+      {showAlert && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-4 rounded-lg shadow-2xl animate-pulse flex items-center gap-3">
+            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            <span className="text-sm font-medium">{alertMessage}</span>
+          </div>
+        </div>
+      )}
+
       <div className="relative aspect-square w-full overflow-hidden rounded-lg">
         <Image
           src={nft.image}
@@ -55,7 +97,10 @@ const NFTCard: FC<NFTCardProps> = ({ nft }) => {
             <p className="text-sm text-gray-400">Price</p>
             <p className="text-lg font-semibold text-white">{nft.price} SOL</p>
           </div>
-          <button className="rounded-lg bg-blue-600/80 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-600">
+          <button
+            onClick={handleBuyClick}
+            className="rounded-lg bg-blue-600/80 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-600"
+          >
             Buy Now
           </button>
         </div>
@@ -75,4 +120,4 @@ const NFTCard: FC<NFTCardProps> = ({ nft }) => {
   );
 };
 
-export default NFTCard; 
+export default NFTCard;
