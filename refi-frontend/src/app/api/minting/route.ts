@@ -1,3 +1,4 @@
+/*
 import { NextRequest, NextResponse } from 'next/server';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import {
@@ -103,3 +104,4 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+*/  
