@@ -2,10 +2,10 @@
 
 CarbonX is a Web3 donation platform that allows verified, impactful environmental organizations to raise funds through **impact-based NFTs**. These NFTs are not just art — they’re minted **only when someone donates**, tying real-world impact to blockchain transparency.
 
-*DeployedContract:[https://explorer.solana.com/address/DgomfhWfmNw6GbDwUuGD2DHSQ2K9FFY78Pei582HvMzD?cluster=devnet]
+*DeployedContract:[https://explorer.solana.com/address/DgomfhWfmNw6GbDwUuGD2DHSQ2K9FFY78Pei582HvMzD?cluster=devnet]*
 
 
-*DEMO:[https://www.loom.com/share/e403483408204d4b99d5e6139174b254?sid=ce6c86e9-1cd3-406f-8bb3-4557601cdde9][https://www.loom.com/share/e403483408204d4b99d5e6139174b254?sid=ce6c86e9-1cd3-406f-8bb3-4557601cdde9]
+*DEMO:[https://www.loom.com/share/e403483408204d4b99d5e6139174b254?sid=ce6c86e9-1cd3-406f-8bb3-4557601cdde9]*
 
 
 ## 🧰 Platform Flow in Detail
