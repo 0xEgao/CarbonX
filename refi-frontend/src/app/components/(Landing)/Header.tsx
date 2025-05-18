@@ -1,6 +1,6 @@
 "use client"
 
-import { Flower } from 'lucide-react';
+import { Flower, Github } from 'lucide-react';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -24,48 +24,59 @@ const Header = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex justify-between border-2 border-gray-900 rounded-full py-5 mt-5 px-10 w-max mx-auto text-white">
-        {/* Top Alert */}
-        <div className="flex w-max items-center justify-between">
-          {/* Logo */}
-          <Link href="/">
-            <div className="flex items-center gap-2">
-              <Flower className="text-white" />
-              <h1 className="text-xl font-bold">CarbonX</h1>
+      <div className="relative w-full max-w-[1400px]">
+        <a 
+          href="https://github.com/0xEgao/CarbonX" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="absolute right-0 top-1/2 mt-1  -translate-y-1/2  flex items-center gap-2 border border-gray-600 rounded-xl px-4 py-1 hover:bg-gray-800 transition-colors"
+        >
+          <Github className="w-5 h-5" />
+          <span className="text-xl font-sans">GitHub</span>
+        </a>
+        <div className="flex justify-between border-2 border-gray-900 rounded-full py-5 mt-5 px-10 w-max mx-auto text-white">
+          {/* Top Alert */}
+          <div className="flex w-max items-center justify-between">
+            {/* Logo */}
+            <Link href="/">
+              <div className="flex items-center gap-2">
+                <Flower className="text-white" />
+                <h1 className="text-xl font-bold">CarbonX</h1>
+              </div>
+            </Link>
+
+            {/* Navigation Items */}
+            <div className="flex gap-10 px-20">
+              <Link href="/register">
+                <h1
+                  className="text-xl font-bold cursor-pointer"
+                  onMouseEnter={() => handleAlert('Register Org')}
+                >
+                  Enroll Orgs
+                </h1>
+              </Link>
+              <Link href="/marketplace">
+                <h1 className="text-xl font-bold cursor-pointer">
+                  Explore NFTs
+                </h1>
+              </Link>
+              <Link href="#features">
+                <h1
+                  className="text-xl font-bold cursor-pointer"
+                  onMouseEnter={() => handleAlert('Register Org')}
+                >
+                  How it works
+                </h1>
+              </Link>
             </div>
-          </Link>
 
-          {/* Navigation Items */}
-          <div className="flex gap-10 px-20">
-            <Link href="/register">
-              <h1
-                className="text-xl font-sans cursor-pointer"
-                onMouseEnter={() => handleAlert('Register Org')}
-              >
-                Enroll Orgs
-              </h1>
-            </Link>
-            <Link href="/marketplace">
-              <h1 className="text-xl font-sans cursor-pointer">
-                Explore NFTs
-              </h1>
-            </Link>
-            <Link href="#features">
-              <h1
-                className="text-xl font-sans cursor-pointer"
-                onMouseEnter={() => handleAlert('Register Org')}
-              >
-                How it works
-              </h1>
-            </Link>
+            {/* Connect Button */}
+            <div className="flex items-center gap-2">
+              <WalletConnect />
+            </div>
           </div>
-
-          {/* Connect Button */}
-          <div className="flex items-center gap-2">
-            <WalletConnect />
-          </div>
+          {alertMessage && <TopAlert message={alertMessage} />}
         </div>
-        {alertMessage && <TopAlert message={alertMessage} />}
       </div>
     </div>
   );
